@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arquivos da Mente — Psicologia de Personagens</title>
+  <style>
+    :root {
+      --bg-base: #0d1015;
+      --bg-surface: #141922;
+      --bg-surface-hover: #1a212d;
+      --bg-elevated: #10141c;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(125, 162, 255, 0.35);
+      --text-primary: #eef2f7;
+      --text-secondary: #a2aec2;
+      --text-muted: #6e798e;
+      --accent: #6e9eff;
+      --accent-soft: rgba(110, 158, 255, 0.12);
+      --accent-secondary: #53d2b8;
+      --accent-sec-soft: rgba(83, 210, 184, 0.11);
+      --fav-accent: #f5b942;
+      --fav-soft: rgba(245, 185, 66, 0.14);
+      --radius-lg: 16px;
+      --radius-md: 11px;
+      --radius-sm: 8px;
+      --shadow-card: 0 12px 30px rgba(0, 0, 0, 0.32);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, sans-serif;
+      background-color: var(--bg-base);
+      background-image:
+        radial-gradient(circle at 15% 0%, rgba(110, 158, 255, 0.09), transparent 42%),
+        radial-gradient(circle at 88% 12%, rgba(83, 210, 184, 0.06), transparent 38%);
+      color: var(--text-primary);
+      line-height: 1.65;
+      min-height: 100vh;
+      padding: 28px 18px 64px;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    header.hero {
+      background: linear-gradient(180deg, rgba(20, 25, 34, 0.92), rgba(16, 20, 28, 0.92));
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      background: var(--accent-sec-soft);
+      border: 1px solid rgba(83, 210, 184, 0.22);
+      padding: 5px 11px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-secondary);
+    }
+
+    .quiz-launch-btn {
+      background: linear-gradient(135deg, rgba(110, 158, 255, 0.2), rgba(83, 210, 184, 0.16));
+      color: var(--text-primary);
+      border: 1px solid var(--border-strong);
+      padding: 11px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+    }
+
+    .quiz-launch-btn:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(110, 158, 255, 0.28), rgba(83, 210, 184, 0.22));
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 3.6vw, 2.55rem);
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    h1 span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 720px;
+      margin-bottom: 16px;
+    }
+
+    .spoiler-notice {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 7px 12px;
+      border-radius: var(--radius-sm);
+    }
+
+    .spoiler-notice strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .controls-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      margin-bottom: 26px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1 1 320px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+      font-size: 0.95rem;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      font-size: 0.96rem;
+      padding: 13px 42px 13px 42px;
+      border-radius: var(--radius-md);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-input:focus {
+      border-color: var(--border-strong);
+      box-shadow: 0 0 0 3px rgba(110, 158, 255, 0.14);
+    }
+
+    .clear-btn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .clear-btn.visible {
+      display: inline-block;
+    }
+
+    .clear-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .reset-all-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .reset-all-btn:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .filter-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-chip {
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      padding: 7px 13px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .filter-chip:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.22);
+      background: var(--bg-surface-hover);
+    }
+
+    .filter-chip.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--border-strong);
+      font-weight: 600;
+    }
+
+    .filter-chip.fav-chip.active {
+      background: var(--fav-soft);
+      color: var(--fav-accent);
+      border-color: rgba(245, 185, 66, 0.42);
+      font-weight: 600;
+    }
+
+    .results-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+      padding: 0 4px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .results-count strong {
+      color: var(--text-primary);
+    }
+
+    .profiles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 22px;
+    }
+
+    .profile-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .profile-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255, 255, 255, 0.16);
+      background: var(--bg-surface-hover);
+    }
+
+    .profile-card.highlighted-match {
+      border-color: var(--accent-secondary);
+      box-shadow: 0 0 0 2px rgba(83, 210, 184, 0.22), var(--shadow-card);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .card-top-right {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-shrink: 0;
+    }
+
+    .work-badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--accent-secondary);
+      background: var(--accent-sec-soft);
+      border: 1px solid rgba(83, 210, 184, 0.2);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      white-space: nowrap;
+    }
+
+    .fav-btn {
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      border: 1px solid var(--border-subtle);
+      width: 30px;
+      height: 30px;
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.16s ease;
+    }
+
+    .fav-btn:hover {
+      color: var(--fav-accent);
+      border-color: rgba(245, 185, 66, 0.35);
+      background: rgba(245, 185, 66, 0.08);
+    }
+
+    .fav-btn.favorited {
+      color: var(--fav-accent);
+      border-color: rgba(245, 185, 66, 0.45);
+      background: var(--fav-soft);
+    }
+
+    .char-name {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 4px;
+    }
+
+    .char-archetype {
+      font-size: 0.87rem;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .char-hook {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 14px;
+    }
+
+    .profile-meta-strip {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .diagnosis-box {
+      background: rgba(110, 158, 255, 0.06);
+      border: 1px solid rgba(110, 158, 255, 0.18);
+      border-radius: var(--radius-md);
+      padding: 11px 13px;
+    }
+
+    .diagnosis-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .diagnosis-text {
+      font-size: 0.89rem;
+      color: var(--text-primary);
+      line-height: 1.52;
+    }
+
+    .signature-quote {
+      border-left: 3px solid var(--accent-secondary);
+      padding: 4px 0 4px 12px;
+      color: var(--text-secondary);
+      font-style: italic;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .xray-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .xray-block {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-md);
+      padding: 14px 15px;
+    }
+
+    .xray-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .xray-text {
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      line-height: 1.62;
+    }
+
+    .work-example {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.09);
+      font-size: 0.87rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .work-example strong {
+      color: var(--accent-secondary);
+      font-weight: 600;
+    }
+
+    .extra-details {
+      display: none;
+      margin-top: 12px;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .profile-card.expanded .extra-details {
+      display: flex;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag-mini {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .toggle-btn {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border: 1px solid rgba(110, 158, 255, 0.25);
+      padding: 8px 13px;
+      border-radius: var(--radius-sm);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .toggle-btn:hover {
+      background: rgba(110, 158, 255, 0.2);
+      color: #cfe0ff;
+    }
+
+    .copy-btn {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      padding: 7px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .copy-btn:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .copy-btn.copied {
+      color: var(--accent-secondary);
+      border-color: rgba(83, 210, 184, 0.35);
+      background: var(--accent-sec-soft);
+    }
+
+    .empty-state {
+      display: none;
+      text-align: center;
+      background: var(--bg-surface);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-lg);
+      padding: 44px 24px;
+      color: var(--text-secondary);
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    .empty-state h2 {
+      color: var(--text-primary);
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    /* Modal do Quiz */
+    .quiz-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 8, 12, 0.82);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      z-index: 999;
+      overflow-y: auto;
+    }
+
+    .quiz-modal-backdrop.open {
+      display: flex;
+    }
+
+    .quiz-modal {
+      width: 100%;
+      max-width: 740px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 26px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .quiz-step-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+      margin-bottom: 4px;
+    }
+
+    .quiz-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .quiz-close-btn {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    .quiz-close-btn:hover {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .disclaimer-card {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(110, 158, 255, 0.22);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .disclaimer-badge {
+      display: inline-block;
+      width: fit-content;
+      font-size: 0.73rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .disclaimer-text {
+      color: var(--text-primary);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    .quiz-progress-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .quiz-progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .quiz-progress-bar {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-elevated);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      transition: width 0.25s ease;
+    }
+
+    .question-prompt {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.45;
+      margin-bottom: 4px;
+    }
+
+    .question-hint {
+      font-size: 0.82rem;
+      color: var(--accent-secondary);
+      margin-bottom: 10px;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 13px 15px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.16s ease;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .option-btn:hover {
+      background: var(--bg-surface-hover);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .option-btn.selected {
+      background: var(--accent-soft);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    .option-marker {
+      width: 18px;
+      height: 18px;
+      border-radius: 5px;
+      border: 1.5px solid var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: transparent;
+    }
+
+    .option-btn.selected .option-marker {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--bg-base);
+    }
+
+    .quiz-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .quiz-btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 10px 15px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .quiz-btn-secondary:hover:not(:disabled) {
+      color: var(--text-primary);
+      border-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .quiz-btn-secondary:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .quiz-btn-primary {
+      background: var(--accent-soft);
+      border: 1px solid var(--border-strong);
+      color: var(--accent);
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .quiz-btn-primary:hover:not(:disabled) {
+      background: rgba(110, 158, 255, 0.22);
+      color: #dce8ff;
+    }
+
+    .quiz-btn-primary:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .result-hero-box {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(83, 210, 184, 0.28);
+      border-radius: var(--radius-md);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .result-match-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--accent-secondary);
+    }
+
+    .result-char-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .result-char-sub {
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .result-justification {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .result-justification p {
+      font-size: 0.93rem;
+      color: var(--text-primary);
+      line-height: 1.65;
+    }
+
+    .runner-ups {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .runner-up-item {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-sm);
+      padding: 10px 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.87rem;
+    }
+
+    .runner-up-item strong {
+      color: var(--text-primary);
+    }
+
+    .runner-up-item span {
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+    }
+
+    footer {
+      margin-top: 44px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.84rem;
+    }
+
+    @media (max-width: 600px) {
+      header.hero,
+      .controls-panel,
+      .profile-card,
+      .quiz-modal {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">Laboratório de Análise Comportamental</div>
+          <h1>Psicologia de <span>Personagens Fictícios</span></h1>
+        </div>
+        <button type="button" id="openQuizBtn" class="quiz-launch-btn">
+          <span>✦</span>
+          <span>Descobrir com quem se parece</span>
+        </button>
+      </div>
+      <p class="subtitle">
+        O que passa por trás da postura, das decisões e das contradições de personagens marcantes.
+        Pesquise por nome ou obra, ou navegue pelos padrões de mente.
+      </p>
+      <div class="spoiler-notice">
+        <strong>Aviso de spoiler:</strong> as análises e exemplos citam trechos e dinâmicas das obras.
+      </div>
+    </header>
+
+    <section class="controls-panel" aria-label="Busca e filtros">
+      <div class="search-row">
+        <div class="search-box">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            type="search"
+            id="searchInput"
+            class="search-input"
+            placeholder="Buscar por personagem, obra, comportamento ou palavra-chave..."
+            autocomplete="off"
+          />
+          <button type="button" id="clearSearchBtn" class="clear-btn" title="Limpar busca">✕</button>
+        </div>
+        <button type="button" id="resetAllBtn" class="reset-all-btn">Limpar filtros</button>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Categoria Psicológica</span>
+        <div class="chip-list" id="categoryFilters"></div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Obra</span>
+        <div class="chip-list" id="workFilters"></div>
+      </div>
+    </section>
+
+    <div class="results-bar">
+      <div class="results-count" id="resultsCount">Mostrando <strong>30</strong> perfis</div>
+      <div class="tag-mini">Favorite perfis com ★ e abra "Ler raio-x completo" para ver reação sob pressão e ponto cego</div>
+    </div>
+
+    <main class="profiles-grid" id="profilesGrid"></main>
+
+    <div class="empty-state" id="emptyState">
+      <h2>Nenhum perfil encontrado com esse recorte</h2>
+      <p>Tente outro termo na busca ou clique em "Limpar filtros" para ver todos os personagens.</p>
+    </div>
+
+    <footer>
+      Arquivos da Mente — Elenco completo de 30 perfis.
+    </footer>
+  </div>
+
+  <!-- Modal do Quiz -->
+  <div class="quiz-modal-backdrop" id="quizModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="quizModalTitle">
+    <div class="quiz-modal" id="quizModalContent"></div>
+  </div>
+
+  <script>
+    const characters = [
+      {
+        id: "kakashi-hatake",
+        name: "Kakashi Hatake",
+        work: "Naruto",
+        category: "Máscaras e Fachada",
+        archetype: "Desapego aparente e hipervigilância silenciosa",
+        diagnosis: "Defensiva hipervigilante — usa distanciamento emocional, postura relaxada e controle de ritmo como amortecedor contra perdas, mantendo o senso de dever intacto por trás da cortina.",
+        quote: "Aqueles que quebram as regras são escória, é verdade... mas aqueles que abandonam seus amigos são piores que escória.",
+        hook: "Parece desligado, mas lê o quarto inteiro antes de falar. O ar preguiçoso funciona como escudo — não como falta de atenção.",
+        facade: "Ele entrega logo de cara a imagem de quem está pouco se lixando: atrasos constantes, tom morno, olhar entediado. Quem toma isso ao pé da letra esquece que o corpo continua atento e que a leitura dele do ambiente costuma vir antes da reação dos outros.",
+        facadeExample: "Chegar horas atrasado em encontros ou treinos lendo seu livro com ar entediado, mas no segundo seguinte já ter lido a postura, a tensão ou a abertura de quem está na frente.",
+        innerDrive: "Evitar que o apego vire novo desastre. Depois de acumular perdas pesadas, o instinto dele é não se expor de peito aberto, mantendo uma margem de segurança mesmo quando se importa de verdade.",
+        innerDriveExample: "A resistência inicial em se apegar emocionalmente aos alunos do Time 7, somada ao peso de carregar o que aconteceu com Obito e Rin sem abrir o jogo de forma simples.",
+        underPressure: "Quando o cenário aperta, o jeito solto desaparece sem fazer cena. Ele passa a ler ângulos, ritmo, intenções e falhas alheias com precisão cirúrgica, chamando para si o peso das decisões em vez de dividir o pânico.",
+        underPressureExample: "Assumir a linha de frente em confrontos difíceis, ler ataques antes do impacto e tomar decisões rápidas e duras para segurar o grupo quando a situação degringola.",
+        blindSpot: "Achar que carregar culpa calado e manter distância emocional protege quem está em volta. Na prática, o silêncio prolongado cria um muro que às vezes afasta exatamente quem precisava de clareza dele.",
+        blindSpotExample: "Guardar sozinho o fardo de episódios do passado — como o peso ligado a Sasuke ou às antigas tragédias — até que o distanciamento custe mais caro do que falar direto."
+      },
+      {
+        id: "patrick-jane",
+        name: "Patrick Jane",
+        work: "The Mentalist",
+        category: "Mentes Dedutivas e Observação",
+        archetype: "Leitura fria, teatralidade e obsessão disfarçada",
+        diagnosis: "Estratégica performática com núcleo obsessivo — combina leitura comportamental afiada e improviso teatral para conduzir pessoas, escondendo uma ferida antiga sob leveza calculada.",
+        quote: "As pessoas veem o que querem ver, e eu só mostro o que ajuda no momento.",
+        hook: "Faz palhaçada, parece inconveniente e convida todo mundo a subestimá-lo — enquanto já pegou detalhes mínimos que entregam o outro.",
+        facade: "A postura de quem não leva nada a sério é uma isca bem afiada. Com piada solta, sorrisos fáceis e distrações calculadas, ele tira o foco da própria observação e faz as pessoas baixarem a guarda antes da hora.",
+        facadeExample: "Deitar no sofá da delegacia, fazer chá, provocar investigadores sérios ou falar como quem está entediado enquanto já notou microreações, postura e contradições do suspeito.",
+        innerDrive: "Há uma ferida antiga e uma obsessão central que o movem por baixo da brincadeira. Ele precisa sentir que está no controle do jogo mental para não voltar a ficar à mercê de quem o feriu.",
+        innerDriveExample: "A perseguição a Red John atravessando anos de trabalho policial — onde cada caso, mentira ou jogada parece orbitar a necessidade de fechar essa conta no próprio ritmo.",
+        underPressure: "Em vez de enrijecer, ele costuma mudar o ritmo da conversa, provocar reações pequenas e observar como a pessoa se ajusta. Usa vaidade, pressa e contradição alheia para fazer o outro se expor sozinho.",
+        underPressureExample: "Armar situações na hora durante interrogatórios ou acareações, soltando uma frase ambígua ou mudando o foco de repente para ver quem perde a linha primeiro.",
+        blindSpot: "Quando o assunto encosta naquilo que mexe direto na dor dele, a calma calculada pode trincar. Aí ele assume riscos altos demais por impulso, achando que ainda domina todas as variáveis.",
+        blindSpotExample: "Passar do ponto quando o rastro de Red John aparece de perto, colocando a própria segurança, a liberdade ou pessoas próximas em risco por impulso de resposta imediata."
+      },
+      {
+        id: "kiyotaka-ayanokoji",
+        name: "Kiyotaka Ayanokoji",
+        work: "Classroom of the Elite",
+        category: "Calculistas e Estratégicos",
+        archetype: "Neutralidade emocional e leitura de sistemas",
+        diagnosis: "Instrumental analítica de baixo afeto — lê sistemas, incentivos e comportamentos de forma fria e pragmática, operando longe do impulso comum.",
+        quote: "Todos os seres humanos são iguais... no fim, tudo se resume a saber como usar o que se tem.",
+        hook: "Quase não faz barulho, não disputa holofote à toa e trata relações e ambientes como engrenagens onde ele vê onde cada peça cede.",
+        facade: "A cara de paisagem e o jeito discreto passam a impressão de alguém comum, apagado ou até passivo. Isso faz os outros não enxergarem a ameaça real até a situação já ter sido moldada por baixo dos panos.",
+        facadeExample: "Manter notas medianas de propósito, evitar chamar atenção nas interações cotidianas e deixar que colegas ou rivais subestimem o quanto ele já previu o movimento seguinte.",
+        innerDrive: "Entender a própria cabeça e testar até onde vai a própria autonomia fora de um sistema rígido que tentou moldá-lo. Ele não age por vaidade comum: age para medir limites, respostas e liberdade de escolha.",
+        innerDriveExample: "Usar o ambiente escolar não para brilhar por si só, mas para observar como pessoas comuns reagem sob pressão e provar que consegue conduzir cenários sem depender das regras impostas a ele.",
+        underPressure: "Não entra em desespero nem reage no calor do momento. Ele olha para incentivos, medos e pontos fracos de quem está em jogo, aceitando perdas calculadas se isso sustentar o resultado maior.",
+        underPressureExample: "Em provas especiais ou disputas de bastidores, esperar o momento exato de agir, sacrificar peças secundárias ou deixar que outros assumam o desgaste enquanto o plano dele fecha.",
+        blindSpot: "A distância em relação ao que é espontâneo e afetivo. Como aprendeu a enxergar tudo em termos de função, cálculo e controle, pode demorar muito a reconhecer o peso real de laços humanos genuínos.",
+        blindSpotExample: "Tratar aproximações, sentimentos alheios ou relações de confiança como testes de comportamento, sem perceber de imediato o que se quebra quando ele reduz alguém a peça de um plano."
+      },
+      {
+        id: "johan-liebert",
+        name: "Johan Liebert",
+        work: "Monster",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Espelho adaptativo e vazio existencial",
+        diagnosis: "Camaleônica especular com vazio identitário — adapta o tom ao que o outro busca ou teme para empurrar o ambiente ao colapso sem precisar agir de frente.",
+        quote: "A única coisa igual entre todos os seres humanos é que todos são iguais diante da morte.",
+        hook: "Não precisa gritar nem ameaçar: ouve, entende o que falta ou assombra o outro e devolve isso de um jeito que leva a pessoa a ruir por conta própria.",
+        facade: "A calma polida, a fala mansa e o ar de alguém inofensivo criam um contraste forte com a gravidade do que acontece ao redor dele. Como não parece agressivo na superfície, muita gente demora a perceber o que está acontecendo.",
+        facadeExample: "Conversar com naturalidade, escutar sem julgar e parecer um jovem educado, lúcido e confiável aos olhos de quem está prestes a ser conduzido por ele.",
+        innerDrive: "Há um vazio profundo e uma busca quase obsessiva por um sentido ou um limite que prove que ele existe de verdade — testando a si mesmo e aos outros até o ponto de quebra.",
+        innerDriveExample: "Provocar situações-limite e observar até onde o medo, a culpa ou a ambição levam outras pessoas, como se buscasse um espelho que desse forma ao próprio nada.",
+        underPressure: "Mantém a mesma serenidade fria enquanto observa o outro se contradizer, se desesperar ou tomar decisões destrutivas. Ele empurra a engrenagem e deixa o ambiente fazer o resto.",
+        underPressureExample: "Deixar que o próprio medo, os segredos ou as escolhas anteriores do outro virem uma bola de neve, intervindo apenas com uma palavra ou ausência no momento certo.",
+        blindSpot: "A falta de um núcleo próprio sólido que não dependa do reflexo alheio. Sem alguém para espelhar ou provocar, o próprio vazio aparece sem disfarce.",
+        blindSpotExample: "A dependência estrutural do jogo de espelhos com os outros e com o próprio passado — quando o espelho quebra ou o outro não cede como esperado, a falta de um 'eu' autônomo fica exposta."
+      },
+      {
+        id: "dexter-morgan",
+        name: "Dexter Morgan",
+        work: "Dexter",
+        category: "Máscaras e Fachada",
+        archetype: "Adaptação ensaiada e código rígido sob vazio afetivo",
+        diagnosis: "Simulação comportamental estruturada — aprende a imitar reações humanas comuns e canaliza impulsos predatórios por meio de regras rígidas herdadas para manter aparência normal e controle.",
+        quote: "Eu vivo no escuro, mas tenho um código.",
+        hook: "Parece o colega prestativo, calmo e comum que ninguém desconfia — enquanto treina cada gesto, sorriso e pausa para não destoar do resto do mundo.",
+        facade: "Ele atua a humanidade como quem segue um roteiro bem decorado: sorri na hora certa, mantém o tom leve no laboratório e parece um cara tranquilo, disponível e inofensivo. A normalidade dele não nasce espontânea — é treinada para não chamar atenção.",
+        facadeExample: "Levar rosquinhas para a equipe, fazer piadas leves no trabalho e manter um jeito cordial no dia a dia enquanto esconde uma rotina noturna inteira debaixo dos panos.",
+        innerDrive: "Manter sob rédea curta um impulso interno destrutivo sem virar alvo fácil ou perder a fachada que lhe dá liberdade, família e rotina.",
+        innerDriveExample: "Seguir à risca o código ensinado por Harry — escolher alvos específicos, limpar rastros e manter rituais controlados para não ceder ao impulso de qualquer jeito.",
+        underPressure: "Quando o cerco aperta ou alguém chega perto demais da verdade, ele acelera a leitura de riscos, corta pontas soltas com frieza e improvisa desculpas práticas para preservar o disfarce.",
+        underPressureExample: "Inventar explicações rápidas diante de colegas ou da polícia quando uma cena sai do script, ou reorganizar os próprios passos na pressa para não ser descoberto.",
+        blindSpot: "Achar que o controle técnico e o código resolvem tudo — subestimando o quanto vínculos reais, o acaso e o próprio cansaço podem bagunçar a simulação dele.",
+        blindSpotExample: "Acreditar que consegue manter pessoas próximas ou situações sensíveis divididas em caixinhas estanques até o atrito entre a vida real e o ritual explodir na cara dele."
+      },
+      {
+        id: "arthur-morgan",
+        name: "Arthur Morgan",
+        work: "Red Dead Redemption 2",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Lealdade ferida e consciência desperta tarde",
+        diagnosis: "Conflito moral tardio sob lealdade enraizada — opera por anos como executor fiel de um grupo e um líder carismático, até o choque com a realidade e a própria finitude forçarem um exame de consciência.",
+        quote: "Nós somos ladrões em um mundo que não nos quer mais.",
+        hook: "Tem cara de bruto calejado e braço direito sem frescura, mas carrega um caderno cheio de observação, dúvida e um peso que ele demora a encarar de frente.",
+        facade: "Por fora, passa a imagem do capanga duro, irônico e leal até o fim: fala seco, cobra sem rodeios e executa o que o bando precisa sem ficar fazendo discurso.",
+        facadeExample: "Cobrar dívidas, encarar tiroteios e sustentar o trabalho sujo do grupo com postura firme, piada seca e pouca reclamação na frente dos outros.",
+        innerDrive: "Honrar a lealdade ao bando e a Dutch — quem o acolheu e lhe deu rumo — enquanto, por dentro, tenta entender se o caminho escolhido ainda faz algum sentido.",
+        innerDriveExample: "Continuar carregando missões e bancando a linha de frente mesmo quando os planos de Dutch começam a soar vazios, arriscados ou contraditórios.",
+        underPressure: "Quando o cerco fecha ou a traição fica evidente, ele não foge da briga: endurece a postura, protege quem ainda pode ser salvo e passa a agir pelo que vê na prática em vez de seguir cegamente.",
+        underPressureExample: "Segurar a barra em fugas e emboscadas difíceis enquanto toma decisões próprias para tirar pessoas vulneráveis do caminho do perigo.",
+        blindSpot: "A demora em soltar uma lealdade antiga mesmo quando os sinais já mostram que o comando mudou — somada ao hábito de se desvalorizar e achar que não merece redenção.",
+        blindSpotExample: "Insistir em defender a visão do bando por tempo demais e tratar a própria vida ou mudança de postura como algo menor do que a dos outros."
+      },
+      {
+        id: "satoru-gojo",
+        name: "Satoru Gojo",
+        work: "Jujutsu Kaisen",
+        category: "Máscaras e Fachada",
+        archetype: "Descontração provocadora e isolamento no topo",
+        diagnosis: "Excentricidade defensiva de alta potência — usa deboche, leveza e superioridade ostensiva para manter distância e provocar o sistema, escondendo a solidão de quem não precisa de ninguém para vencer.",
+        quote: "Não se preocupe. Eu sou o mais forte.",
+        hook: "Faz graça, trata ameaças sérias como piada e parece o cara mais livre da sala — justamente porque quase ninguém consegue alcançar o nível onde ele está.",
+        facade: "Ele se apresenta como um provocador despreocupado: fala alto, brinca com o perigo, irrita figurões engravatados e age como se tudo fosse simples demais para exigir cautela.",
+        facadeExample: "Aparecer sorrindo, fazer piada na cara de inimigos perigosos ou debochar da cúpula conservadora enquanto resolve sozinho o que o resto não dá conta.",
+        innerDrive: "Quebrar estruturas engessadas e formar gente capaz de caminhar ao lado dele em vez de depender de um único 'deus' que carrega tudo sozinho.",
+        innerDriveExample: "Apostar em alunos promissores e tentar reformar o ambiente ao redor para não deixar o futuro nas mãos de velhos esquemas.",
+        underPressure: "Quando o jogo aperta de verdade, a brincadeira dá lugar a uma frieza afiada e ao cálculo rápido do que está em jogo — embora o peso de ter que resolver tudo sozinho possa cobrar seu preço.",
+        underPressureExample: "Medir riscos em confrontos críticos e assumir o protagonismo absoluto quando o plano ou a segurança dos outros depende diretamente da resposta dele.",
+        blindSpot: "Achar que ser o mais forte basta para resolver problemas que exigem construção coletiva, empatia fina ou presença constante no dia a dia das pessoas.",
+        blindSpotExample: "Confiar demais na própria capacidade de dar conta de tudo sozinho e deixar brechas onde a força bruta ou a presença pontual não alcançam."
+      },
+      {
+        id: "homem-aranha",
+        name: "Homem-Aranha (Peter Parker)",
+        work: "Homem-Aranha",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Culpa moral constante e piada como válvula de escape",
+        diagnosis: "Responsabilidade compulsiva sob tensão crônica — usa humor rápido e leveza verbal para aliviar o medo e a exaustão, enquanto carrega o peso de cada falha ou perda como obrigação pessoal.",
+        quote: "Com grandes poderes vêm grandes responsabilidades.",
+        hook: "Solta piada no meio da pancadaria para não travar, mas vive apertado entre boletos, atrasos, culpa e a sensação de que nunca faz o suficiente.",
+        facade: "Por fora, o jeito tagarela, sarcástico e irreverente passa a impressão de alguém solto e até desaforado. Na prática, a piada serve para quebrar a tensão do momento e esconder o quanto ele está no limite.",
+        facadeExample: "Provocar vilões mais fortes ou mais velhos com comentários rápidos no meio da luta enquanto está cansado, ferido ou preocupado com a vida civil.",
+        innerDrive: "Impedir que alguém pague o preço de uma omissão ou de um erro dele — transformando culpa antiga em impulso diário de ajudar quem está por perto.",
+        innerDriveExample: "Correr para salvar pessoas mesmo exausto, sem dinheiro ou arriscando compromissos pessoais para não sentir que virou as costas como já sentiu que fez antes.",
+        underPressure: "Quando tudo desanda, a ironia afia ainda mais ou dá lugar a uma teimosia difícil de quebrar: ele aguenta pancada muito além do razoável para não ceder.",
+        underPressureExample: "Insistir em se levantar contra ameaças esmagadoras ou resolver crises em várias frentes ao mesmo tempo, mesmo quando o corpo e a mente já pedem pausa.",
+        blindSpot: "Achar que precisa carregar todos os problemas nas próprias costas e que pedir ajuda ou falhar em algum ponto significa fracasso moral.",
+        blindSpotExample: "Esconder o aperto real de amigos e pessoas próximas para não preocupá-los, acabando sobrecarregado e criando ruídos na própria vida pessoal."
+      },
+      {
+        id: "goku",
+        name: "Goku",
+        work: "Dragon Ball",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Simplicidade direta e obsessão pura por superação",
+        diagnosis: "Foco monotemático de alta espontaneidade — age com franqueza desarmante e alegria simples no dia a dia, mas entra em estado de concentração absoluta quando o desafio envolve teste de limite.",
+        quote: "Eu não sou um herói da justiça, mas não perdôo quem machuca os outros.",
+        hook: "Parece um cara simples, bem-humorado e desligado das formalidades — até o assunto virar luta séria e o olhar dele mudar por completo.",
+        facade: "Ele se mostra direto, caloroso, despreocupado e sem malícia: fala o que pensa, come sem cerimônia e trata quase todo mundo com naturalidade.",
+        facadeExample: "Sorrir com tranquilidade diante de figuras imponentes ou ameaças gigantescas, tratando o momento com simplicidade onde outros já estariam tensos.",
+        innerDrive: "Buscar o próprio limite e enfrentar adversários cada vez mais fortes para crescer, ao mesmo tempo em que protege quem ele ama e quem é injustiçado.",
+        innerDriveExample: "Treinar sem parar por vontade própria de evoluir e aceitar desafios difíceis mesmo quando há margem para evitar o confronto.",
+        underPressure: "Perde a distração boba e foca no ritmo, na leitura do oponente e na adaptação rápida durante o combate, mantendo a cabeça leve mesmo em cenários extremos.",
+        underPressureExample: "Ler os movimentos de um adversário superior no meio da luta, ajustar a estratégia no calor do momento e virar o jogo sem perder o foco.",
+        blindSpot: "A tendência a subestimar consequências amplas, planos mais sombrios ou o impacto da própria busca por luta em situações que exigem cautela fria.",
+        blindSpotExample: "Dar espaço ou chance para um oponente perigoso mostrar força máxima por curiosidade competitiva, arriscando complicar o cenário além do necessário."
+      },
+      {
+        id: "superman",
+        name: "Superman (Clark Kent)",
+        work: "Superman",
+        category: "Máscaras e Fachada",
+        archetype: "Contenção deliberada e humanidade escolhida",
+        diagnosis: "Autocontrole ético de alta contenção — modula força e postura com precisão constante para não intimidar nem esmagar o ambiente, ancorando-se em valores simples e proximidade humana.",
+        quote: "Não é sobre o quão forte você é, mas sobre o que você escolhe fazer com essa força.",
+        hook: "Tem poder para virar o jogo em segundos, mas escolhe falar baixo, medir cada gesto e viver perto das pessoas comuns para não perder o chão.",
+        facade: "Como Clark Kent, adota uma postura discreta, educada e acessível, evitando qualquer ar de superioridade. Mesmo como Superman, mantém tom calmo e aberto em vez de impor medo.",
+        facadeExample: "Agir com paciência, escuta e delicadeza no dia a dia e nas interações cotidianas, calibrando a própria força para que nada quebre por descuido.",
+        innerDrive: "Usar o que tem para proteger e elevar os outros sem se colocar acima deles — guiado por uma bússola moral firme e pelo senso de pertencimento.",
+        innerDriveExample: "Escolher caminhos de esperança, contenção e amparo mesmo quando o cenário empurra para respostas duras ou vingativas.",
+        underPressure: "Segura a impulsividade e organiza as prioridades com calma: avalia quem está em risco, contém o dano colateral e resiste à tentação de resolver tudo só na força.",
+        underPressureExample: "Manter a calma em crises de grande escala, proteger civis em primeiro lugar e segurar o próprio limite mesmo quando é provocado.",
+        blindSpot: "Achar que sempre consegue salvar todo mundo ou manter a própria esperança intacta sem sentir o peso de decisões difíceis e limites reais.",
+        blindSpotExample: "Tentar carregar o peso de crises simultâneas sozinho ou acreditar que o bom exemplo basta diante de quem rejeita qualquer acordo."
+      },
+      {
+        id: "batman",
+        name: "Batman (Bruce Wayne)",
+        work: "Batman",
+        category: "Calculistas e Estratégicos",
+        archetype: "Controle obsessivo, preparação e luto estruturado",
+        diagnosis: "Hiperpreparação estratégica sob luto não resolvido — converte trauma antigo em disciplina extrema, antecipação de cenários e vigilância constante para impedir que o caos se repita.",
+        quote: "Não é quem eu sou por dentro, mas o que eu faço que me define.",
+        hook: "Parece impenetrável, frio e sempre dois passos à frente — porque vive planejando o pior cenário para nunca mais ficar impotente.",
+        facade: "Como Bruce Wayne, veste a máscara do playboy despreocupado e distante; como Batman, assume a figura sombria, seca e intimidadora que faz criminosos hesitarem antes mesmo do golpe.",
+        facadeExample: "Manter postura reservada ou despreocupada em público enquanto já mapeou saídas, riscos, horários e pontos fracos do ambiente.",
+        innerDrive: "Impedir que outras pessoas vivam a tragédia que marcou a origem dele — transformando dor antiga em método, preparo físico e estratégia implacável.",
+        innerDriveExample: "Estudar ameaças, treinar sem descanso e montar planos de contingência para cada eventualidade antes que o problema estoure.",
+        underPressure: "Fica ainda mais contido, analítico e focado no objetivo: corta distrações, lê o cenário com frieza e improvisa a partir do que já havia previsto.",
+        underPressureExample: "Virar uma situação desfavorável usando preparação prévia, leitura rápida do ambiente e decisões duras sem deixar o pânico mandar.",
+        blindSpot: "A necessidade de controlar tudo e desconfiar de falhas pode isolá-lo, endurecer relações e levá-lo a tratar aliados ou a si mesmo apenas em termos de função e risco.",
+        blindSpotExample: "Esconder planos, evitar abrir mão do comando ou desconfiar de margens de erro a ponto de afastar quem tenta ajudar ou ficar sobrecarregado sozinho."
+      },
+      {
+        id: "light-yagami",
+        name: "Light Yagami",
+        work: "Death Note",
+        category: "Calculistas e Estratégicos",
+        archetype: "Complexo de messias e escalada de paranoia",
+        diagnosis: "Grandiosidade estratégica sob controle obsessivo — parte de uma ideia rígida de ordem e justiça para justificar poder absoluto, tratando pessoas como peças e elevando o nível de risco à medida que o ego cresce.",
+        quote: "Este mundo está podre, e alguém precisa purificá-lo.",
+        hook: "Parece o aluno exemplar, educado e impecável que todo mundo elogia — enquanto monta um plano frio por trás da rotina normal.",
+        facade: "Mantém a postura do jovem brilhante, cortês e disciplinado, cumprindo o papel esperado pela família, pela escola e pelas autoridades sem levantar suspeita fácil.",
+        facadeExample: "Estudar, agir com naturalidade diante dos pais e investigadores e manter a imagem de rapaz íntegro enquanto esconde o caderno e os cálculos noturnos.",
+        innerDrive: "Impor a própria visão de justiça sobre o mundo e ocupar o topo como juiz e executor supremo, movido por senso de superioridade e necessidade de controle.",
+        innerDriveExample: "Criar um sistema de punições à distância e buscar eliminar qualquer ameaça ou investigador que tente cruzar o caminho dele.",
+        underPressure: "Acelera o raciocínio lógico, cria camadas de álibi e manipula intenções alheias com rapidez — mas a irritação e o orgulho podem fazê-lo assumir jogadas arriscadas demais.",
+        underPressureExample: "Improvisar contramedidas em investigações apertadas, ler a reação de rivais e forçar o outro a errar primeiro.",
+        blindSpot: "Achar que está acima do erro, da emoção ou do julgamento alheio — subestimando o quanto a vaidade e a desconfiança constante corroem a própria margem de segurança.",
+        blindSpotExample: "Aceitar provocações diretas ou desconfiar até de aliados por não admitir que alguém possa acompanhá-lo ou contrariá-lo."
+      },
+      {
+        id: "l-lawliet",
+        name: "L",
+        work: "Death Note",
+        category: "Mentes Dedutivas e Observação",
+        archetype: "Lógica dedutiva excêntrica e desconexão social",
+        diagnosis: "Dedutiva hiperfocada de baixa convenção — opera por hipóteses, testes de comportamento e raciocínio probabilístico indiferente a regras sociais comuns ou conforto tradicional.",
+        quote: "Se você é inteligente, não pense que os outros não são.",
+        hook: "Parece largado, estranho e fora de qualquer padrão — mas cada pergunta, postura ou detalhe aparentemente aleatório faz parte de um teste lógico.",
+        facade: "Não tenta parecer formal ou elegante: senta-se de forma incomum, come doces em excesso e age sem cerimônia, deixando o estranhamento de lado em favor da utilidade prática.",
+        facadeExample: "Aparecer de camiseta e calça simples, sentar agachado ou com as pernas dobradas e falar de forma seca enquanto testa reações ao redor.",
+        innerDrive: "Resolver enigmas complexos e testar a própria capacidade de dedução contra oponentes desafiadores, encarando a investigação como um jogo intelectual de alto nível.",
+        innerDriveExample: "Montar armadilhas de informação, medir a taxa de reação de suspeitos e acompanhar cada pista até fechar o cerco lógico.",
+        underPressure: "Fica ainda mais concentrado e experimental: formula hipóteses alternativas rápido, aceita atritos estratégicos e observa como o adversário responde à pressão.",
+        underPressureExample: "Soltar iscas controladas para ver quem reage de forma específica ou reajustar a linha de investigação sem apego a teorias antigas.",
+        blindSpot: "A dificuldade de lidar com proximidade humana comum e a tendência a tratar pessoas e situações como variáveis de um problema, além de negligenciar o próprio corpo.",
+        blindSpotExample: "Dormir pouco, manter distância emocional de quem trabalha ao lado e apostar em testes de limite que elevam o risco pessoal."
+      },
+      {
+        id: "monkey-d-luffy",
+        name: "Monkey D. Luffy",
+        work: "One Piece",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Liberdade absoluta e lealdade visceral",
+        diagnosis: "Impulsividade autêntica de foco direto — reage com franqueza imediata, alegria desarmada e teimosia inabalável diante do que considera opressão ou ameaça aos amigos.",
+        quote: "Eu não quero conquistar nada. Só quero ser a pessoa mais livre deste mar.",
+        hook: "Parece bobo, impulsivo e sem noção do perigo — até alguém encostar nos amigos ou tentar impor correntes à liberdade dele.",
+        facade: "Mostra-se sorridente, barulhento, faminto e totalmente sem filtro, dizendo o que sente na hora e tratando o mundo com espontaneidade direta.",
+        facadeExample: "Rir de situações tensas, dormir em horas improváveis ou ir direto ao ponto sem fazer discursos elaborados.",
+        innerDrive: "Alcançar a liberdade máxima e cumprir seu sonho ao lado do bando, protegendo quem está com ele sem aceitar submissão a ninguém.",
+        innerDriveExample: "Encarar inimigos muito mais temidos ou poderosos apenas porque um amigo foi ferido, humilhado ou colocado em risco.",
+        underPressure: "Não trava por excesso de cálculo: simplifica o problema, mantém o espírito firme e avança com determinação crua mesmo quando tudo parece contra.",
+        underPressureExample: "Continuar lutando ou avançando quando o corpo já está no limite, sem abrir mão da promessa ou da proteção do grupo.",
+        blindSpot: "Ignorar planos mais longos, riscos logísticos ou consequências práticas antes de agir, deixando o resto do grupo apagar incêndios operacionais.",
+        blindSpotExample: "Entrar de cabeça em confusões sem planejar rota de fuga ou ouvir avisos cautelosos antes de o confronto começar."
+      },
+      {
+        id: "roronoa-zoro",
+        name: "Roronoa Zoro",
+        work: "One Piece",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Disciplina marcial seca e honra inegociável",
+        diagnosis: "Estoicismo prático de foco marcial — mantém postura contida, lealdade firme ao capitão e rigor com o próprio código, contrastando dureza física com senso de direção péssimo.",
+        quote: "Quando eu decido fazer algo, mesmo que eu morra, eu não vou me arrepender.",
+        hook: "Tem cara de durão calado e focado na lâmina — mas se perde até em linha reta quando o assunto não é o alvo da luta.",
+        facade: "Passa impressão fria, séria e contida, falando pouco e demonstrando firmeza silenciosa em vez de espalhar emoção à toa.",
+        facadeExample: "Manter expressão fechada, treinar pesado na dele ou assumir posturas firmes sem fazer alarde.",
+        innerDrive: "Cumprir a promessa de se tornar o maior espadachim do mundo e sustentar a honra e a força do bando em qualquer cenário.",
+        innerDriveExample: "Aceitar dor extrema ou assumir fardos pesados por lealdade ao capitão e ao propósito que escolheu.",
+        underPressure: "Fica ainda mais sóbrio e resoluto: lê a distância, a intenção e o peso do golpe com frieza, sem recuar diante de pressão intimidadora.",
+        underPressureExample: "Segurar a linha de frente contra adversários temidos e manter a cabeça firme quando o ambiente inteiro tenta intimidar.",
+        blindSpot: "A teimosia extrema em carregar dor ou desvio sozinho, somada à incapacidade crônica de se orientar em caminhos comuns.",
+        blindSpotExample: "Pegar o corredor errado sozinho com facilidade ou insistir em suportar danos graves sem pedir ajuda imediata."
+      },
+      {
+        id: "asta",
+        name: "Asta",
+        work: "Black Clover",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Teimosia inesgotável e recusa em desistir",
+        diagnosis: "Resiliência hiperativa de foco teimoso — compensa falta de vantagem inicial com energia transbordante, repetição incansável e recusa firme em aceitar limites impostos por outros.",
+        quote: "A minha magia é nunca desistir.",
+        hook: "Grita alto, treina como se não houvesse amanhã e insiste onde todo mundo já jogou a toalha — até virar referência de persistência.",
+        facade: "Parece espalhafatoso, barulhento e impulsivo demais, entrando de peito aberto em situações que assustam quem analisa tudo de fora.",
+        facadeExample: "Falar alto, declarar metas grandes sem timidez e partir para o treino físico pesado sem medir desconforto.",
+        innerDrive: "Provar que esforço, insistência e lealdade aos companheiros podem quebrar barreiras de origem e status, alcançando o topo que prometeu.",
+        innerDriveExample: "Repetir exercícios até a exaustão e defender colegas que são menosprezados ou colocados em desvantagem.",
+        underPressure: "Em vez de encolher, dobra a energia e a insistência: mantém o moral do grupo para cima e procura brecha mesmo quando está em desvantagem clara.",
+        underPressureExample: "Levantar de novo após quedas duras e incentivar aliados quando a situação parece perdida.",
+        blindSpot: "A falta de cautela ou moderação na própria intensidade, podendo forçar o corpo além da conta ou atropelar nuances que pedem calma.",
+        blindSpotExample: "Insistir em forçar o limite físico repetidas vezes ou reagir no impulso antes de avaliar o cenário inteiro."
+      },
+      {
+        id: "denji",
+        name: "Denji",
+        work: "Chainsaw Man",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Desejos diretos e fome de vida comum",
+        diagnosis: "Pragmatismo afetivo de base simples — guiado por necessidades concretas e busca por afeto e dignidade após escassez severa, misturando franqueza crua com vulnerabilidade emocional.",
+        quote: "Eu só quero uma vida normal, comer bem e ter alguém que se importe.",
+        hook: "Parece guiado só por vontades básicas e sem filtro — mas por trás disso existe alguém que nunca teve o mínimo de cuidado e aprende na marra.",
+        facade: "Age de forma direta, sincera até demais e sem pose sofisticada, falando sem rodeios sobre o que quer comer, sentir ou ter no dia a dia.",
+        facadeExample: "Comer com vontade algo simples que antes era luxo ou falar abertamente sobre desejos comuns sem fingir postura madura.",
+        innerDrive: "Conquistar uma vida com comida, teto, liberdade e vínculos reais depois de anos vivendo em dívida e miséria.",
+        innerDriveExample: "Aceitar trabalhos perigosos ou arriscados em troca de estabilidade básica, comida decente ou promessas de proximidade.",
+        underPressure: "Quando o choque aperta, alterna entre instinto bruto de sobrevivência e uma simplicidade inesperada que corta jogos mentais complexos.",
+        underPressureExample: "Agir de forma direta e imprevisível em situações caóticas onde outros tentam elaborar planos complicados demais.",
+        blindSpot: "A facilidade de se apegar ou confiar em quem oferece migalhas de atenção ou promessas bonitas, ficando vulnerável a manipulações.",
+        blindSpotExample: "Colocar expectativa alta em sinais de carinho ou promessas de terceiros sem perceber intenções escondidas por trás."
+      },
+      {
+        id: "itachi-uchiha",
+        name: "Itachi Uchiha",
+        work: "Naruto",
+        category: "Calculistas e Estratégicos",
+        archetype: "Sacrifício silencioso e papel de vilão calculado",
+        diagnosis: "Estratégica de autossacrifício contido — avalia cenários de longo prazo com frieza controlada e aceita carregar o ódio de quem mais ama para evitar um conflito maior.",
+        quote: "As pessoas vivem suas vidas ligadas ao que elas aceitam como correto e verdadeiro. Isso é o que elas chamam de realidade.",
+        hook: "Olhar calmo, voz baixa e postura de quem parece não sentir nada — enquanto carrega uma verdade que ninguém ao redor enxerga.",
+        facade: "Apresenta-se com serenidade quase inabalável, poucas palavras e frieza distante, assumindo sem reclamar a imagem de traidor ou ameaça calculada.",
+        facadeExample: "Manter postura impassível em conversas tensas ou confrontos diretos, deixando que o outro leia apenas a frieza da superfície.",
+        innerDrive: "Proteger a vila e empurrar o irmão mais novo por um caminho que o torne forte e capaz de lidar com o que virá, mesmo ao custo do próprio nome e da própria vida.",
+        innerDriveExample: "Sustentar uma história dolorosa por anos e montar cenários futuros para testar e preparar Sasuke sem revelar o quadro inteiro de imediato.",
+        underPressure: "Mantém compostura serena, leitura tática afiada e domínio de ritmo mesmo sob desgaste físico ou confronto emocional pesado.",
+        underPressureExample: "Controlar o tempo de uma luta ou conversa difícil, medindo reações e mantendo a calma até o momento exato de agir.",
+        blindSpot: "Acreditar que consegue controlar sozinho o destino e a dor de quem ama sem deixar cicatrizes profundas pelo caminho.",
+        blindSpotExample: "Guardar verdades decisivas por tempo demais e assumir sozinho decisões que afetam diretamente a cabeça e os passos de Sasuke."
+      },
+      {
+        id: "thomas-shelby",
+        name: "Thomas Shelby",
+        work: "Peaky Blinders",
+        category: "Calculistas e Estratégicos",
+        archetype: "Ambição pragmática e guerra interna contida",
+        diagnosis: "Pragmatismo estratégico sob trauma não encerrado — negocia sem pestanejar, lê interesses e medos com precisão e aposta no limite para subir, enquanto tenta abafar o desgaste interno.",
+        quote: "Já se está num estado de derrota quando se tem de implorar por aquilo que se quer.",
+        hook: "Olhar frio, fala medida e postura de quem já calculou o próximo lance — mas carrega por dentro o barulho constante da guerra e das próprias escolhas.",
+        facade: "Entrega a imagem do líder impassível, direto e dono da sala: raramente levanta a voz à toa, mede cada palavra e trata o ambiente com frieza calculada.",
+        facadeExample: "Sentar-se à mesa de negociação com adversários poderosos, manter o silêncio pesado até o outro falar demais e fechar acordos na base do cálculo.",
+        innerDrive: "Conquistar poder, respeito e proteção real para a família e para si mesmo, buscando algum controle num mundo onde nada parece seguro.",
+        innerDriveExample: "Expandir os negócios e subir na hierarquia política e criminal para não ficar mais à mercê de quem manda ou persegue o grupo.",
+        underPressure: "Fica mais frio, objetivo e disposto a pagar o preço do risco: força decisões rápidas, blefa quando precisa e empurra o outro lado até ceder.",
+        underPressureExample: "Assumir apostas altas em momentos críticos e tomar atitudes duras de última hora quando o plano original sofre reviravolta.",
+        blindSpot: "A incapacidade de desligar a guerra interna mesmo quando conquista espaço, dinheiro e estabilidade — deixando o próprio desgaste corroer o que está em volta.",
+        blindSpotExample: "Tratar emoções e relações como variáveis de controle e achar que o próximo degrau de poder vai calar o que pesa na própria cabeça."
+      },
+      {
+        id: "ellie-williams",
+        name: "Ellie Williams",
+        work: "The Last of Us",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Humor ácido sob colapso e luto que endurece",
+        diagnosis: "Resiliência dura sob luto acumulado — combina sagacidade rápida, teimosia e sarcasmo para enfrentar um mundo hostil, mas endurece à medida que perdas e cobranças se somam.",
+        quote: "Depois de tudo que passamos... tudo o que eu fiz... não pode ser em vão.",
+        hook: "Solta piada afiada e fala sem filtro para encarar um mundo pesado — mas carrega uma mágoa e uma cobrança interna que não soltam fácil.",
+        facade: "Mostra-se atrevida, irônica, curiosa e dura na queda, usando humor seco e resposta rápida para não parecer frágil diante do perigo ou de quem tenta controlá-la.",
+        facadeExample: "Responder com sarcasmo em situações tensas ou perigosas para manter o controle emocional e não entregar vulnerabilidade de graça.",
+        innerDrive: "Dar sentido ao que perdeu, proteger quem importa e não deixar que a dor ou a mentira fiquem sem resposta.",
+        innerDriveExample: "Seguir em frente contra chances ruins quando sente que precisa encarar uma verdade ou fechar uma conta que não sai da cabeça.",
+        underPressure: "Avança com determinação implacável, improviso rápido e coragem direta quando o que ama ou a própria dignidade está em jogo.",
+        underPressureExample: "Encarar emboscadas e perigos diretos com frieza prática quando o cenário exige reação rápida para sobreviver ou defender alguém.",
+        blindSpot: "Deixar que a necessidade de encerrar uma ferida ou buscar resposta à força custe paz, vínculos e a própria humanidade.",
+        blindSpotExample: "Insistir num caminho de cobrança e dureza mesmo quando isso afasta quem está ao lado e cobra um preço emocional alto demais."
+      },
+      {
+        id: "mikasa-ackerman",
+        name: "Mikasa Ackerman",
+        work: "Attack on Titan",
+        category: "Máscaras e Fachada",
+        archetype: "Determinação silenciosa e foco absoluto no vínculo",
+        diagnosis: "Foco protetor de alta intensidade — une eficiência prática e postura reservada a um apego profundo, operando com clareza até o vínculo exigir uma escolha dolorosa.",
+        quote: "Este mundo é cruel... e também muito bonito.",
+        hook: "Calada, firme e atenta ao redor — parece viver em função de proteger quem ama, até o momento em que os fatos pedem um corte difícil.",
+        facade: "Mantém expressão contida, tom sereno e pouca conversa fiada, passando a imagem de alguém silencioso, focado e sempre pronto para agir.",
+        facadeExample: "Acompanhar de perto sem fazer cena, falar pouco no dia a dia e reagir no segundo exato quando alguém importante entra em risco.",
+        innerDrive: "Manter por perto e proteger quem se tornou seu centro emocional, lutando com tudo o que tem para não repetir a perda do passado.",
+        innerDriveExample: "Colocar a segurança de Eren acima de quase qualquer outra coisa e avançar sem hesitar quando ele corre perigo.",
+        underPressure: "Age com precisão imediata, sangue-frio e decisão rápida no combate ou na crise, sem se perder em pânico disperso.",
+        underPressureExample: "Ler a ameaça em frações de segundo e intervir com firmeza quando o grupo é pego de surpresa.",
+        blindSpot: "A tendência a centralizar o próprio senso de propósito em uma única pessoa e adiar rupturas dolorosas mesmo quando os sinais já mudaram.",
+        blindSpotExample: "Demorar a enxergar ou aceitar que o outro já está seguindo um rumo destrutivo ou incompatível com o que ela tentou proteger."
+      },
+      {
+        id: "levi-ackerman",
+        name: "Levi Ackerman",
+        work: "Attack on Titan",
+        category: "Calculistas e Estratégicos",
+        archetype: "Frieza pragmática e precisão sob o caos",
+        diagnosis: "Pragmatismo disciplinado sob perda recorrente — alia leitura tática fria, limpeza como busca de ordem e decisão rápida sob pressão sem se iludir com discursos vazios.",
+        quote: "Ninguém sabe qual será o resultado. Escolha aquilo de que você vai se arrepender menos.",
+        hook: "Fala seco, exige ordem e resolve no detalhe o que outros travam de medo — mas carrega o peso silencioso de quem já enterrou gente demais.",
+        facade: "Mostra-se severo, direto, exigente e sem paciência para enrolação, usando postura seca e cobrança clara para impor disciplina ao redor.",
+        facadeExample: "Dar ordens curtas, cobrar limpeza e atenção aos detalhes e cortar discursos longos quando o momento pede ação prática.",
+        innerDrive: "Cumprir o dever, manter a equipe viva o máximo possível e honrar as escolhas e promessas feitas aos que ficaram para trás.",
+        innerDriveExample: "Assumir missões críticas na linha de frente e tomar decisões duras quando nenhum caminho oferece garantia limpa.",
+        underPressure: "Mantém controle técnico, clareza de leitura e execução rápida mesmo quando tudo ao redor entra em colapso emocional ou tático.",
+        underPressureExample: "Reorganizar a reação do grupo no meio de um ataque inesperado e escolher o próximo passo sem paralisar pelo choque.",
+        blindSpot: "Carregar sozinho o peso das escolhas e das perdas acumuladas, escondendo o próprio desgaste atrás da postura dura.",
+        blindSpotExample: "Engolir o impacto de ver companheiros caírem repetidas vezes e seguir bancando o comando como se não precisasse de respiro."
+      },
+      {
+        id: "sherlock-holmes",
+        name: "Sherlock Holmes",
+        work: "Sherlock Holmes",
+        category: "Mentes Dedutivas e Observação",
+        archetype: "Dedução obsessiva e apatia diante do comum",
+        diagnosis: "Analítica hiperfocada de baixo apego — lê vestígios mínimos e inconsistências com rapidez clínica, mas oscila entre o estímulo intenso do enigma e o vazio entediado quando a rotina esfria.",
+        quote: "Quando você exclui o impossível, o que sobra, por mais improvável que pareça, tem de ser a verdade.",
+        hook: "Vê uma história inteira num detalhe que ninguém notou, mas perde o interesse ou entra em parafuso quando a cabeça não tem um problema real para roer.",
+        facade: "Pode parecer excêntrico, seco ou até indiferente às regras sociais comuns, tratando convenções como distração secundária diante do que chama a atenção dele.",
+        facadeExample: "Ignorar conversas vazias ou protocolos burocráticos e ir direto a marcas de roupa, postura, hábito ou cheiro que passam batido para os outros.",
+        innerDrive: "Buscar ordem lógica, desafio intelectual e clareza em meio ao caos, usando o raciocínio como motor principal para se manter vivo e estimulado.",
+        innerDriveExample: "Mergulhar a fundo em casos complexos ou contraditórios e rejeitar rotinas previsíveis que o deixam apático.",
+        underPressure: "Acelera a triagem de hipóteses, conecta indícios soltos e mantém o foco na cadeia de fatos enquanto o entorno se agita.",
+        underPressureExample: "Reconstruir passos, intenções ou falhas de um plano no meio de um impasse, testando suposições sem se deixar levar por boatos.",
+        blindSpot: "Subestimar dimensões emocionais, afetivas ou humanas que não seguem apenas o encadeamento lógico frio, além de cair no tédio destrutivo sem estímulo.",
+        blindSpotExample: "Tratar sentimentos ou reações humanas como ruído menor ou ficar à deriva quando não há mistério à altura para ocupar a mente."
+      },
+      {
+        id: "maki-zenin",
+        name: "Maki Zenin",
+        work: "Jujutsu Kaisen",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Rejeição ao clã e força bruta sem amarras",
+        diagnosis: "Ruptura combativa de alta obstinação — enfrenta a exclusão de um sistema rígido com dureza física e teimosia direta, passando da contenção reativa a uma postura sem concessões quando o limite é cruzado.",
+        quote: "Se você não tem o que os outros têm, então faz o seu próprio caminho na marra.",
+        hook: "Encara de frente quem tenta diminuí-la e não pede permissão para ocupar espaço — mas carrega o peso de provar o próprio valor num ambiente hostil.",
+        facade: "Mostra-se firme, direta, sem paciência para frescura e disposta a bater de frente em vez de engolir provocação calada.",
+        facadeExample: "Responder sem rodeios às cobranças ou deboches de quem se acha superior por linhagem e sustentar o treino pesado no peito.",
+        innerDrive: "Conquistar respeito próprio, independência e um lugar que ninguém possa tirar dela, protegendo quem importa sem aceitar ser descartada.",
+        innerDriveExample: "Treinar sem parar para superar desvantagens impostas e encarar estruturas opressoras de frente.",
+        underPressure: "Fica mais direta, contundente e focada no golpe decisivo: corta hesitação e responde à violência ou à pressão sem recuar.",
+        underPressureExample: "Assumir o enfrentamento direto em cenários adversos e avançar com precisão física quando o grupo precisa de alguém que não treme.",
+        blindSpot: "A dureza e a necessidade de provar força podem fazê-la assumir cargas pesadas demais ou enrijecer diante de quem tenta se aproximar com cuidado.",
+        blindSpotExample: "Bancando o enfrentamento sozinha por orgulho ou teimosia mesmo quando o dano acumulado já pede outro tempo ou apoio."
+      },
+      {
+        id: "toji-fushiguro",
+        name: "Toji Fushiguro",
+        work: "Jujutsu Kaisen",
+        category: "Ruptura de Sistema e Instinto",
+        archetype: "Fora das regras e pragmatismo letal",
+        diagnosis: "Oportunismo instintivo fora do sistema — sem depender das regras convencionais do meio, lê brechas, espera o momento exato e age com frieza prática movido por interesse ou impulso.",
+        quote: "Não importa o quanto você se prepare, alguém sem amarras sempre muda o jogo.",
+        hook: "Parece um cara comum, largado ou sem pose — até o momento em que quebra a lógica do ambiente com precisão fria e zero apego a tradições.",
+        facade: "Passa impressão desleixada, despreocupada ou até subestimável à primeira vista, sem ostentar títulos nem cerimônia.",
+        facadeExample: "Aparecer com ar tranquilo ou despretensioso, escondendo a ameaça real até a hora exata de dar o bote.",
+        innerDrive: "Operar livre das amarras e hierarquias que o rejeitaram ou tentaram prendê-lo, movendo-se por cálculo prático, oportunidade ou acerto de contas.",
+        innerDriveExample: "Aceitar contratos ou agir fora do radar das instituições estabelecidas, escolhendo o momento em que o alvo está mais vulnerável.",
+        underPressure: "Combina leitura afiada de ritmo, percepção apurada e execução fria, explorando falhas de quem confia demais em regras ou previsibilidade.",
+        underPressureExample: "Esperar o desgaste ou a distração do oponente para atacar de surpresa e virar confrontos que pareciam desfavoráveis.",
+        blindSpot: "O desapego extremo e o foco em agir por conta própria podem cegá-lo para o impacto real das próprias escolhas sobre laços e consequências maiores.",
+        blindSpotExample: "Tratar encontros, dívidas ou desfechos como transações pontuais sem medir o efeito duradouro que isso deixa para trás."
+      },
+      {
+        id: "hinata-hyuga",
+        name: "Hinata Hyuga",
+        work: "Naruto",
+        category: "Máscaras e Fachada",
+        archetype: "Timidez visível e firmeza silenciosa por dentro",
+        diagnosis: "Contenção tímida com núcleo firme — parece acanhada, hesitante e de voz baixa no cotidiano, mas guarda uma convicção teimosa que se impõe quando alguém que ela admira ou ama está em risco.",
+        quote: "Eu também costumava errar o tempo todo... mas foi errando que eu encontrei o meu caminho.",
+        hook: "Fala baixo, hesita no começo e parece frágil por fora — mas dá um passo à frente sem recuar quando a situação exige coragem real.",
+        facade: "Mostra-se reservada, cautelosa e pouco expansiva, muitas vezes se retraiendo ou evitando holofotes em situações sociais ou de cobrança.",
+        facadeExample: "Falar baixinho, abaixar o olhar ou hesitar antes de se colocar em ambientes onde se sente insegura.",
+        innerDrive: "Superar a própria insegurança passo a passo e ter a força necessária para caminhar junto e proteger quem serve de referência para ela.",
+        innerDriveExample: "Treinar em silêncio mesmo desacreditada no início e se colocar na frente de ameaças maiores para defender quem importa.",
+        underPressure: "Quando o limite é ultrapassado, a hesitação dá lugar a uma determinação firme e tranquila: ela encara o perigo de frente mesmo sabendo que está em desvantagem.",
+        underPressureExample: "Avançar com postura decidida para proteger alguém próximo em uma luta desigual, sem fingir força que não tem, mas sem fugir.",
+        blindSpot: "A autocrítica severa e a tendência a se colocar em segundo plano ou duvidar do próprio valor antes de ver a força que já construiu.",
+        blindSpotExample: "Achar que não está à altura ou se cobrar além da conta por tropeços antigos, demorando a reconhecer a própria evolução."
+      },
+      {
+        id: "sasuke-uchiha",
+        name: "Sasuke Uchiha",
+        work: "Naruto",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Afeto contido e guinadas de vingança e rumo",
+        diagnosis: "Oscilação identitária sob dor e reparação — carrega vínculos fortes sob uma casca fria, mas muda radicalmente de eixo e método conforme descobre novas verdades ou tenta responder à própria dor.",
+        quote: "Eu fechei os meus olhos... e o que eu quero ver está na escuridão.",
+        hook: "Parece frio, distante e movido apenas por acerto de contas — mas cada ruptura dele esconde um laço que ele tenta cortar ou redefinir à força.",
+        facade: "Adota postura séria, fechada e cortante, mantendo distância emocional e falando pouco para não parecer vulnerável.",
+        facadeExample: "Responder de forma seca, isolar-se do grupo e tratar aproximações com desconfiança quando a mágoa aperta.",
+        innerDrive: "Responder à tragédia que marcou sua história, redefinir o próprio caminho e encontrar um sentido próprio para o poder e para o que ficou para trás.",
+        innerDriveExample: "Buscar força a qualquer custo, romper com o ambiente anterior e reavaliar alvos e verdades sempre que o chão muda sob os pés.",
+        underPressure: "Reage com intensidade alta, foco duro e adaptação rápida no combate, embora a carga emocional possa empurrá-lo para escolhas extremas.",
+        underPressureExample: "Ler movimentos com rapidez em lutas difíceis e apostar tudo num golpe ou estratégia quando o confronto exige ruptura total.",
+        blindSpot: "A tendência a enxergar tudo através do filtro da dor ou da própria leitura do momento, afastando quem tenta alcançá-lo e mudando de rumo de forma brusca.",
+        blindSpotExample: "Cortar laços ou virar a chave de forma radical por impulso e só enxergar o que o distanciamento custou depois de quebrar pontes importantes."
+      },
+      {
+        id: "frieren",
+        name: "Frieren",
+        work: "Frieren e a Jornada para o Além",
+        category: "Incongruentes e Contraditórios",
+        archetype: "Escala de tempo longa e afeto percebido tarde",
+        diagnosis: "Descompasso temporal de processamento afetivo — lê o mundo numa escala longa e calma que dilui urgências comuns, mas só compreende o peso real de momentos e vínculos quando o tempo já passou.",
+        quote: "É engraçado... eu não sabia nada sobre os seres humanos.",
+        hook: "Parece distante, sonolenta e presa a detalhes minúsculos enquanto o tempo passa — até perceber tarde demais o quanto certas horas eram curtas.",
+        facade: "Entrega a imagem de alguém calmo, vago, econômico nas palavras e focado em pequenas curiosidades ou rotinas tranquilas, passando a impressão de frieza ou desinteresse.",
+        facadeExample: "Demorar anos ou décadas para notar mudanças simples no ritmo das pessoas ao redor e se ocupar com magias triviais ou coleções aparentemente menores.",
+        innerDrive: "Entender de verdade quem eram as pessoas que passaram pela jornada dela e construir conexões mais presentes antes que o tempo escorra de novo.",
+        innerDriveExample: "Refazer o caminho da antiga aventura não apenas pelo destino final, mas para observar, ouvir e compreender quem caminha com ela agora.",
+        underPressure: "Mantém tranquilidade fria, contenção de energia e leitura precisa do ritmo do adversário, sem se deixar arrastar por alarde desnecessário.",
+        underPressureExample: "Controlar o gasto, esperar a abertura exata e responder a ameaças sérias com calma calculada e precisão técnica.",
+        blindSpot: "Subestimar o quanto o tempo humano é breve e o quanto a postura contida pode fazer outros acharem que ela não liga no presente.",
+        blindSpotExample: "Deixar passar oportunidades de proximidade ou conversa no momento em que acontecem, percebendo o valor daquela cena só depois."
+      },
+      {
+        id: "hannibal-lecter",
+        name: "Hannibal Lecter",
+        work: "Hannibal",
+        category: "Calculistas e Estratégicos",
+        archetype: "Cortesia refinada e manipulação psicológica cirúrgica",
+        diagnosis: "Estética manipuladora de alta leitura — combina polidez, cultura e escuta atenta como fachada para mapear feridas e curiosidades alheias e induzir escolhas sem perder o controle.",
+        quote: "A cortesia é a nossa máscara mais elaborada.",
+        hook: "Escuta com calma, fala com elegância e parece o conselheiro mais lúcido da sala — enquanto observa onde o outro cede por dentro.",
+        facade: "Apresenta-se com modos impecáveis, paciência, gosto refinado e atenção quase terapêutica, fazendo com que pareça seguro, civilizado e confiável.",
+        facadeExample: "Servir uma refeição, conduzir conversas calmas e parecer um interlocutor culto e ponderado enquanto lê os pontos sensíveis de quem está na frente.",
+        innerDrive: "Explorar reações humanas, provocar transformações e manter domínio intelectual e estético sobre o próprio espaço e sobre os jogos que observa.",
+        innerDriveExample: "Acompanhar de perto mentes instáveis ou desafiadoras para ver como reagem quando expostas a certas verdades ou escolhas.",
+        underPressure: "Fica ainda mais contido, elegante e calculista: lê o risco com frieza, ajusta o discurso e escolhe o movimento exato sem perder a compostura.",
+        underPressureExample: "Manter o tom sereno quando pressionado ou investigado, virando a conversa ou o cenário com precisão sem demonstrar pressa.",
+        blindSpot: "Achar que o controle intelectual e a leitura do outro blindam contra apego, provocação ou o inesperado de quem reage fora do script.",
+        blindSpotExample: "Investir demais na própria curiosidade sobre alguém próximo e criar brechas emocionais ou estratégicas que ele mesmo acaba alimentando."
+      },
+      {
+        id: "dick-grayson",
+        name: "Dick Grayson (Robin / Asa Noturna)",
+        work: "Justiça Jovem",
+        category: "Calculistas e Estratégicos",
+        archetype: "Liderança tática ágil e ponte entre sombra e leveza",
+        diagnosis: "Coordenação estratégica com empatia ativa — alia leitura de campo rápida, improviso físico e senso de equipe à capacidade de ler pessoas e manter o grupo coeso sem virar um bloco frio.",
+        quote: "A gente não precisa virar sombra para resolver o problema; precisa saber trabalhar junto.",
+        hook: "Parece o líder ágil, desenrolado e fácil de ler — mas já montou a leitura tática da missão e pensou em como cada peça da equipe funciona melhor.",
+        facade: "Apresenta-se com energia rápida, postura solta, fala articulada e senso de humor leve, passando a impressão de alguém acessível e confiante no que faz.",
+        facadeExample: "Dar o tom da conversa com naturalidade, manter o ritmo da equipe solto e assumir a coordenação sem parecer um comando rígido ou distante.",
+        innerDrive: "Transformar a própria história em liderança que proteja e una pessoas, evitando que outros repitam o isolamento e a rigidez que ele viu de perto.",
+        innerDriveExample: "Organizar estratégias em conjunto, ler o ponto forte de cada parceiro e sustentar o grupo quando há atrito ou dúvida.",
+        underPressure: "Fica mais rápido na leitura do espaço, improvisa rotas e ajustes no meio da ação e mantém a clareza para conduzir o time sem perder o foco.",
+        underPressureExample: "Reorganizar um plano no ar quando uma variável muda de repente e distribuir papéis com agilidade sob pressão.",
+        blindSpot: "Querer segurar tantas pontas ao mesmo tempo ou esconder planos e dúvidas para evitar conflito imediato com quem confia nele.",
+        blindSpotExample: "Assumir decisões de bastidor sozinho para poupar o grupo ou manter o sorriso e o ritmo mesmo quando a cobrança interna aperta."
+      }
+    ];
+
+    const FAVORITES_STORAGE_KEY = "arquivos_da_mente_favorites_v1";
+
+    function loadFavorites() {
+      try {
+        const raw = localStorage.getItem(FAVORITES_STORAGE_KEY);
+        if (!raw) return new Set();
+        const parsed = JSON.parse(raw);
+        return new Set(Array.isArray(parsed) ? parsed : []);
+      } catch (e) {
+        return new Set();
+      }
+    }
+
+    function saveFavorites(favSet) {
+      try {
+        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(Array.from(favSet)));
+      } catch (e) {}
+    }
+
+    const quizQuestions = [
+      {
+        id: "q1-fachada",
+        axis: "facade",
+        prompt: "Quando entra num ambiente novo ou conversa com alguém pela primeira vez, qual é a sua postura mais natural?",
+        hint: "Múltipla escolha: marque até 2 opções que mais combinam com você.",
+        maxSelect: 2,
+        options: [
+          {
+            label: "Fico mais na minha, falo pouco e observo o ritmo e a postura das pessoas ao redor.",
+            summary: "apresenta uma postura reservada e de observação antes de se expor",
+            weights: { "kakashi-hatake": 3, "kiyotaka-ayanokoji": 3, "mikasa-ackerman": 3, "sasuke-uchiha": 2, "hinata-hyuga": 2, "frieren": 3 }
+          },
+          {
+            label: "Uso leveza, humor, provocação ou conversa solta para tirar o peso ou desviar o foco.",
+            summary: "usa leveza, humor ou descontração aparente para administrar o ambiente",
+            weights: { "patrick-jane": 4, "satoru-gojo": 4, "homem-aranha": 3, "goku": 2, "ellie-williams": 2, "dick-grayson": 3 }
+          },
+          {
+            label: "Ajo de forma educada, normal e adaptável para não chamar atenção fora do comum.",
+            summary: "mantém uma aparência cordata e adaptável para não destoar do entorno",
+            weights: { "dexter-morgan": 4, "light-yagami": 3, "superman": 2, "johan-liebert": 2, "hannibal-lecter": 4 }
+          },
+          {
+            label: "Sou direto, seco ou sem rodeios — não faço pose nem fico disfarçando o que penso.",
+            summary: "prefere franqueza direta e postura sem rodeios",
+            weights: { "arthur-morgan": 3, "roronoa-zoro": 3, "levi-ackerman": 3, "maki-zenin": 3, "denji": 2, "asta": 2 }
+          }
+        ]
+      },
+      {
+        id: "q2-leitura",
+        axis: "facade",
+        prompt: "O que você costuma notar primeiro quando repara em alguém ou numa situação?",
+        hint: "Múltipla escolha: marque até 2 opções.",
+        maxSelect: 2,
+        options: [
+          {
+            label: "Inconsistências na fala, detalhes mínimos, sinais físicos ou falhas no raciocínio.",
+            summary: "capta detalhes mínimos, contradições e padrões ocultos",
+            weights: { "sherlock-holmes": 4, "patrick-jane": 4, "l-lawliet": 4, "kakashi-hatake": 2 }
+          },
+          {
+            label: "Interesses escondidos, incentivos, relações de poder e onde a situação pode virar.",
+            summary: "lê incentivos, brechas de poder e dinâmicas de cenário",
+            weights: { "kiyotaka-ayanokoji": 4, "thomas-shelby": 4, "light-yagami": 3, "toji-fushiguro": 3, "hannibal-lecter": 3, "dick-grayson": 3 }
+          },
+          {
+            label: "O que a outra pessoa teme, busca ou precisa ouvir para reagir.",
+            summary: "percebe o que toca a sensibilidade, o medo ou a busca do outro",
+            weights: { "johan-liebert": 4, "patrick-jane": 2, "superman": 2, "hannibal-lecter": 4 }
+          },
+          {
+            label: "Se há alguém sendo injustiçado, pressionado ou em risco real ali.",
+            summary: "repara primeiro em quem está em risco ou sob pressão injusta",
+            weights: { "homem-aranha": 3, "superman": 3, "monkey-d-luffy": 3, "hinata-hyuga": 3, "mikasa-ackerman": 2, "dick-grayson": 2 }
+          }
+        ]
+      },
+      {
+        id: "q3-motor",
+        axis: "innerDrive",
+        prompt: "O que costuma te mover mais por dentro quando você toma decisões importantes?",
+        hint: "Múltipla escolha: marque até 2 opções.",
+        maxSelect: 2,
+        options: [
+          {
+            label: "Proteger quem importa e evitar que erros ou perdas se repitam com quem está perto.",
+            summary: "é movido por proteção de vínculos e responsabilidade com quem importa",
+            weights: { "kakashi-hatake": 3, "itachi-uchiha": 4, "mikasa-ackerman": 4, "homem-aranha": 3, "hinata-hyuga": 3, "superman": 2, "frieren": 3, "dick-grayson": 3 }
+          },
+          {
+            label: "Autonomia, liberdade de escolha e não ficar preso a regras, cobranças ou sistemas alheios.",
+            summary: "busca autonomia e liberdade fora de amarras impostas",
+            weights: { "monkey-d-luffy": 4, "toji-fushiguro": 4, "kiyotaka-ayanokoji": 3, "maki-zenin": 3, "denji": 2 }
+          },
+          {
+            label: "Resolver um problema difícil, testar limites ou alcançar um objetivo que você colocou na cabeça.",
+            summary: "busca desafio, superação de limites ou conquista de um objetivo próprio",
+            weights: { "goku": 4, "asta": 4, "sherlock-holmes": 3, "l-lawliet": 3, "thomas-shelby": 3, "roronoa-zoro": 3 }
+          },
+          {
+            label: "Manter controle do cenário, fechar uma conta antiga ou dar sentido a algo que ficou aberto.",
+            summary: "busca controle, reparação ou fechamento para o que ficou aberto",
+            weights: { "patrick-jane": 4, "batman": 3, "sasuke-uchiha": 4, "ellie-williams": 3, "arthur-morgan": 2, "light-yagami": 3, "hannibal-lecter": 3 }
+          }
+        ]
+      },
+      {
+        id: "q4-pressao",
+        axis: "underPressure",
+        prompt: "Quando a pressão aperta de verdade ou o cenário vira contra você, como você costuma reagir?",
+        hint: "Múltipla escolha: marque até 2 opções.",
+        maxSelect: 2,
+        options: [
+          {
+            label: "Fico mais frio e objetivo, leio o cenário e escolho o lance com maior chance de resultado.",
+            summary: "responde sob pressão com frieza, leitura tática e foco no resultado",
+            weights: { "levi-ackerman": 4, "batman": 4, "thomas-shelby": 3, "kiyotaka-ayanokoji": 3, "itachi-uchiha": 3, "hannibal-lecter": 4, "frieren": 3 }
+          },
+          {
+            label: "Mudo o ritmo, testo reações ou improviso na hora para virar o jogo.",
+            summary: "adapta o ritmo na hora e provoca ou improvisa para virar o jogo",
+            weights: { "patrick-jane": 4, "l-lawliet": 3, "goku": 3, "denji": 2, "toji-fushiguro": 2, "dick-grayson": 4 }
+          },
+          {
+            label: "Endureço a postura, avanço sem recuar e insisto até onde der para segurar o tranco.",
+            summary: "sustenta a pressão com firmeza direta e resistência teimosa",
+            weights: { "maki-zenin": 4, "roronoa-zoro": 3, "asta": 4, "monkey-d-luffy": 3, "ellie-williams": 3, "hinata-hyuga": 2 }
+          },
+          {
+            label: "Seguro o tranco calado, assumo o peso sozinho e evito espalhar pânico para os outros.",
+            summary: "absorve o impacto em silêncio para não espalhar pânico ao redor",
+            weights: { "kakashi-hatake": 3, "superman": 3, "dexter-morgan": 3, "mikasa-ackerman": 2, "levi-ackerman": 2 }
+          }
+        ]
+      },
+      {
+        id: "q5-regras",
+        axis: "innerDrive",
+        prompt: "Qual é a sua relação com regras, convenções e expectativas dos outros?",
+        hint: "Múltipla escolha: marque até 2 opções.",
+        maxSelect: 2,
+        options: [
+          {
+            label: "Sigo enquanto faz sentido prático ou protege o que importa — se trava o essencial, eu ignoro.",
+            summary: "trata regras como ferramenta prática, não como dogma cego",
+            weights: { "kakashi-hatake": 3, "patrick-jane": 3, "toji-fushiguro": 4, "arthur-morgan": 3, "levi-ackerman": 2, "frieren": 3, "dick-grayson": 3 }
+          },
+          {
+            label: "Rejeito de cara o que tenta me limitar, rotular ou prender minha liberdade.",
+            summary: "rejeita rótulos e limites que tentam restringir sua autonomia",
+            weights: { "monkey-d-luffy": 4, "maki-zenin": 4, "asta": 3, "denji": 3 }
+          },
+          {
+            label: "Uso as aparências e regras externas a meu favor quando convém manter o controle.",
+            summary: "usa regras e aparências externas de forma calculada quando convém",
+            weights: { "dexter-morgan": 4, "light-yagami": 4, "kiyotaka-ayanokoji": 3, "thomas-shelby": 2, "hannibal-lecter": 4 }
+          },
+          {
+            label: "Tenho um código interno próprio e firme, mesmo quando ele conflita com o que esperam de mim.",
+            summary: "se guia por um código interno próprio mesmo contra expectativas externas",
+            weights: { "superman": 4, "batman": 3, "roronoa-zoro": 4, "itachi-uchiha": 3, "sasuke-uchiha": 2 }
+          }
+        ]
+      },
+      {
+        id: "q6-ponto-cego",
+        axis: "blindSpot",
+        prompt: "Qual dessas falhas ou armadilhas costuma te pegar de surpresa com mais frequência?",
+        hint: "Múltipla escolha: marque até 2 opções.",
+        maxSelect: 2,
+        options: [
+          {
+            label: "Carregar problemas ou pesos sozinho demais e demorar a abrir o jogo ou pedir ajuda.",
+            summary: "tende a carregar peso sozinho e adiar abertura ou pedido de ajuda",
+            weights: { "kakashi-hatake": 4, "homem-aranha": 4, "levi-ackerman": 3, "batman": 3, "itachi-uchiha": 3, "dick-grayson": 3 }
+          },
+          {
+            label: "Agir no impulso, subestimar consequências longas ou insistir além da conta por teimosia.",
+            summary: "pode forçar além da conta ou subestimar desdobramentos de curto prazo",
+            weights: { "goku": 4, "asta": 4, "monkey-d-luffy": 4, "ellie-williams": 3, "maki-zenin": 2 }
+          },
+          {
+            label: "Olhar tudo demais pelo filtro da estratégia, da lógica ou do controle — e perder o lado humano/afetivo.",
+            summary: "pode priorizar análise ou controle e perder a dimensão afetiva ou espontânea",
+            weights: { "kiyotaka-ayanokoji": 4, "sherlock-holmes": 4, "l-lawliet": 3, "dexter-morgan": 3, "light-yagami": 3, "hannibal-lecter": 3 }
+          },
+          {
+            label: "Criar expectativa alta em vínculos/promessas ou mudar de rumo de forma brusca quando a dor aperta.",
+            summary: "pode oscilar na dor, perceber tarde o peso do momento ou depositar expectativa demais em sinais e vínculos",
+            weights: { "denji": 4, "sasuke-uchiha": 4, "arthur-morgan": 3, "mikasa-ackerman": 3, "hinata-hyuga": 3, "johan-liebert": 2, "frieren": 4 }
+          }
+        ]
+      }
+    ];
+
+    const FAVORITES_FILTER_VALUE = "__FAVORITES__";
+    const categories = ["Todas", FAVORITES_FILTER_VALUE, ...new Set(characters.map(c => c.category))];
+    const works = ["Todas", ...new Set(characters.map(c => c.work))];
+
+    let state = {
+      search: "",
+      category: "Todas",
+      work: "Todas",
+      expandedIds: new Set(),
+      copiedId: null,
+      highlightedId: null,
+      favorites: loadFavorites()
+    };
+
+    let quizState = {
+      isOpen: false,
+      step: "disclaimer", // "disclaimer" | "questions" | "result"
+      questionIndex: 0,
+      selectedByQuestion: {} // questionId -> Set of option indices
+    };
+
+    const searchInput = document.getElementById("searchInput");
+    const clearSearchBtn = document.getElementById("clearSearchBtn");
+    const resetAllBtn = document.getElementById("resetAllBtn");
+    const categoryFiltersEl = document.getElementById("categoryFilters");
+    const workFiltersEl = document.getElementById("workFilters");
+    const profilesGridEl = document.getElementById("profilesGrid");
+    const resultsCountEl = document.getElementById("resultsCount");
+    const emptyStateEl = document.getElementById("emptyState");
+    const openQuizBtn = document.getElementById("openQuizBtn");
+    const quizModalBackdrop = document.getElementById("quizModalBackdrop");
+    const quizModalContent = document.getElementById("quizModalContent");
+
+    function renderChips(container, items, activeValue, onSelect) {
+      container.innerHTML = "";
+      items.forEach(item => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        const isFavChip = item === FAVORITES_FILTER_VALUE;
+        btn.className =
+          "filter-chip" +
+          (isFavChip ? " fav-chip" : "") +
+          (item === activeValue ? " active" : "");
+        btn.textContent = isFavChip ? `★ Favoritos (${state.favorites.size})` : item;
+        btn.addEventListener("click", () => onSelect(item));
+        container.appendChild(btn);
+      });
+    }
+
+    function normalizeText(text) {
+      return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function getFilteredCharacters() {
+      const q = normalizeText(state.search.trim());
+
+      return characters.filter(char => {
+        const matchesCategory =
+          state.category === "Todas" ||
+          (state.category === FAVORITES_FILTER_VALUE
+            ? state.favorites.has(char.id)
+            : char.category === state.category);
+        const matchesWork = state.work === "Todas" || char.work === state.work;
+
+        if (!matchesCategory || !matchesWork) return false;
+        if (!q) return true;
+
+        const searchableBlob = normalizeText([
+          char.name,
+          char.work,
+          char.category,
+          char.archetype,
+          char.diagnosis,
+          char.quote,
+          char.hook,
+          char.facade,
+          char.facadeExample,
+          char.innerDrive,
+          char.innerDriveExample,
+          char.underPressure,
+          char.underPressureExample,
+          char.blindSpot,
+          char.blindSpotExample
+        ].join(" "));
+
+        return searchableBlob.includes(q);
+      });
+    }
+
+    function toggleFavorite(charId) {
+      if (state.favorites.has(charId)) {
+        state.favorites.delete(charId);
+      } else {
+        state.favorites.add(charId);
+      }
+      saveFavorites(state.favorites);
+      syncUI();
+    }
+
+    function buildCharacterCopyText(char) {
+      return [
+        `${char.name} (${char.work}) — ${char.category}`,
+        `Diagnóstico: ${char.diagnosis}`,
+        `Frase marcante: "${char.quote}"`,
+        `Fachada: ${char.facade} | Na obra: ${char.facadeExample}`,
+        `Motor interno: ${char.innerDrive} | Na obra: ${char.innerDriveExample}`,
+        `Sob pressão: ${char.underPressure} | Na obra: ${char.underPressureExample}`,
+        `Ponto cego: ${char.blindSpot} | Na obra: ${char.blindSpotExample}`
+      ].join("\n");
+    }
+
+    function copyCharacterSummary(char) {
+      const text = buildCharacterCopyText(char);
+
+      const markCopied = () => {
+        state.copiedId = char.id;
+        renderProfiles();
+        setTimeout(() => {
+          if (state.copiedId === char.id) {
+            state.copiedId = null;
+            renderProfiles();
+          }
+        }, 1600);
+      };
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(markCopied).catch(() => fallbackCopy(text, markCopied));
+      } else {
+        fallbackCopy(text, markCopied);
+      }
+    }
+
+    function fallbackCopy(text, onDone) {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        onDone();
+      } catch (e) {}
+      document.body.removeChild(textarea);
+    }
+
+    function renderProfiles() {
+      const filtered = getFilteredCharacters();
+      profilesGridEl.innerHTML = "";
+
+      const total = filtered.length;
+      resultsCountEl.innerHTML = `Mostrando <strong>${total}</strong> ${total === 1 ? "perfil" : "perfis"}`;
+
+      if (total === 0) {
+        emptyStateEl.classList.add("visible");
+        return;
+      }
+
+      emptyStateEl.classList.remove("visible");
+
+      filtered.forEach(char => {
+        const isExpanded = state.expandedIds.has(char.id);
+        const isCopied = state.copiedId === char.id;
+        const isHighlighted = state.highlightedId === char.id;
+        const isFavorited = state.favorites.has(char.id);
+        const card = document.createElement("article");
+        card.id = `card-${char.id}`;
+        card.className = "profile-card" + (isExpanded ? " expanded" : "") + (isHighlighted ? " highlighted-match" : "");
+
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <div>
+                <h2 class="char-name">${char.name}</h2>
+                <div class="char-archetype">${char.archetype}</div>
+              </div>
+              <div class="card-top-right">
+                <span class="work-badge">${char.work}</span>
+                <button
+                  type="button"
+                  class="fav-btn ${isFavorited ? "favorited" : ""}"
+                  data-fav-id="${char.id}"
+                  title="${isFavorited ? "Remover dos favoritos" : "Favoritar personagem"}"
+                  aria-pressed="${isFavorited}"
+                >
+                  ${isFavorited ? "★" : "☆"}
+                </button>
+              </div>
+            </div>
+
+            <p class="char-hook">${char.hook}</p>
+
+            <div class="profile-meta-strip">
+              <div class="diagnosis-box">
+                <div class="diagnosis-label">Diagnóstico da Personalidade</div>
+                <p class="diagnosis-text">${char.diagnosis}</p>
+              </div>
+              <blockquote class="signature-quote">“${char.quote}”</blockquote>
+            </div>
+
+            <div class="xray-sections">
+              <div class="xray-block">
+                <div class="xray-title">Fachada</div>
+                <p class="xray-text">${char.facade}</p>
+                <p class="work-example"><strong>Na obra:</strong> ${char.facadeExample}</p>
+              </div>
+
+              <div class="xray-block">
+                <div class="xray-title">Motor Interno</div>
+                <p class="xray-text">${char.innerDrive}</p>
+                <p class="work-example"><strong>Na obra:</strong> ${char.innerDriveExample}</p>
+              </div>
+
+              <div class="extra-details">
+                <div class="xray-block">
+                  <div class="xray-title">Sob Pressão</div>
+                  <p class="xray-text">${char.underPressure}</p>
+                  <p class="work-example"><strong>Na obra:</strong> ${char.underPressureExample}</p>
+                </div>
+
+                <div class="xray-block">
+                  <div class="xray-title">Ponto Cego</div>
+                  <p class="xray-text">${char.blindSpot}</p>
+                  <p class="work-example"><strong>Na obra:</strong> ${char.blindSpotExample}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <span class="tag-mini">${char.category}</span>
+            <div class="card-actions">
+              <button type="button" class="toggle-btn" data-id="${char.id}">
+                ${isExpanded ? "Recolher" : "Ler raio-x completo"}
+              </button>
+              <button type="button" class="copy-btn ${isCopied ? "copied" : ""}" data-copy-id="${char.id}" title="Copiar análise do personagem">
+                ${isCopied ? "Copiado ✓" : "Copiar"}
+              </button>
+            </div>
+          </div>
+        `;
+
+        const favBtn = card.querySelector(".fav-btn");
+        favBtn.addEventListener("click", () => toggleFavorite(char.id));
+
+        const toggleBtn = card.querySelector(".toggle-btn");
+        toggleBtn.addEventListener("click", () => {
+          if (state.expandedIds.has(char.id)) {
+            state.expandedIds.delete(char.id);
+          } else {
+            state.expandedIds.add(char.id);
+          }
+          renderProfiles();
+        });
+
+        const copyBtn = card.querySelector(".copy-btn");
+        copyBtn.addEventListener("click", () => copyCharacterSummary(char));
+
+        profilesGridEl.appendChild(card);
+      });
+    }
+
+    function syncUI() {
+      clearSearchBtn.classList.toggle("visible", state.search.length > 0);
+      renderChips(categoryFiltersEl, categories, state.category, val => {
+        state.category = val;
+        syncUI();
+      });
+      renderChips(workFiltersEl, works, state.work, val => {
+        state.work = val;
+        syncUI();
+      });
+      renderProfiles();
+    }
+
+    /* Lógica do Quiz */
+    function openQuiz() {
+      quizState.isOpen = true;
+      quizState.step = "disclaimer";
+      quizState.questionIndex = 0;
+      quizState.selectedByQuestion = {};
+      quizModalBackdrop.classList.add("open");
+      renderQuizModal();
+    }
+
+    function closeQuiz() {
+      quizState.isOpen = false;
+      quizModalBackdrop.classList.remove("open");
+    }
+
+    function getSelectedSet(questionId) {
+      if (!quizState.selectedByQuestion[questionId]) {
+        quizState.selectedByQuestion[questionId] = new Set();
+      }
+      return quizState.selectedByQuestion[questionId];
+    }
+
+    function calculateQuizRanking() {
+      const scores = {};
+      const axisHits = {};
+
+      characters.forEach(c => {
+        scores[c.id] = 0;
+        axisHits[c.id] = new Set();
+      });
+
+      const chosenSummaries = {
+        facade: [],
+        innerDrive: [],
+        underPressure: [],
+        blindSpot: []
+      };
+
+      quizQuestions.forEach(q => {
+        const selected = getSelectedSet(q.id);
+        selected.forEach(optIdx => {
+          const option = q.options[optIdx];
+          if (!option) return;
+
+          if (option.summary && !chosenSummaries[q.axis].includes(option.summary)) {
+            chosenSummaries[q.axis].push(option.summary);
+          }
+
+          Object.entries(option.weights).forEach(([charId, pts]) => {
+            if (scores[charId] !== undefined) {
+              scores[charId] += pts;
+              if (pts > 0) axisHits[charId].add(q.axis);
+            }
+          });
+        });
+      });
+
+      Object.keys(scores).forEach(charId => {
+        scores[charId] += axisHits[charId].size * 1.25;
+      });
+
+      const maxPossible = quizQuestions.reduce((acc, q) => {
+        const topWeights = q.options
+          .map(o => Math.max(0, ...Object.values(o.weights)))
+          .sort((a, b) => b - a)
+          .slice(0, q.maxSelect || 1);
+        return acc + topWeights.reduce((s, v) => s + v, 0) + 5;
+      }, 0);
+
+      const ranked = characters
+        .map(char => {
+          const rawScore = scores[char.id] || 0;
+          const affinity = Math.min(98, Math.max(24, Math.round((rawScore / Math.max(1, maxPossible * 0.72)) * 100)));
+          return {
+            character: char,
+            score: rawScore,
+            affinity,
+            matchedAxes: Array.from(axisHits[char.id])
+          };
+        })
+        .sort((a, b) => b.score - a.score);
+
+      return { ranked, chosenSummaries };
+    }
+
+    function buildGroundedJustification(topEntry, chosenSummaries) {
+      const char = topEntry.character;
+      const parts = [];
+
+      parts.push(
+        `A correspondência com <strong>${char.name}</strong> (<em>${char.work}</em>, núcleo em <strong>${char.category}</strong>) aparece por convergência de padrão comportamental — e não como rótulo fechado. No catálogo, o perfil é descrito como: <em>${char.diagnosis}</em>`
+      );
+
+      if (chosenSummaries.facade.length > 0) {
+        parts.push(
+          `<strong>Postura e leitura:</strong> nas suas respostas, você indicou que ${chosenSummaries.facade.join(" e ")}. Isso conversa diretamente com a fachada de ${char.name}: ${char.facade.charAt(0).toLowerCase() + char.facade.slice(1)}`
+        );
+      }
+
+      if (chosenSummaries.innerDrive.length > 0) {
+        parts.push(
+          `<strong>O que te move por baixo:</strong> você sinalizou que ${chosenSummaries.innerDrive.join(" e ")}. No perfil de ${char.name}, o motor interno passa justamente por ${char.innerDrive.charAt(0).toLowerCase() + char.innerDrive.slice(1)}`
+        );
+      }
+
+      if (chosenSummaries.underPressure.length > 0) {
+        parts.push(
+          `<strong>Sob pressão:</strong> quando o cenário aperta, sua tendência apontada foi que você ${chosenSummaries.underPressure.join(" e ")}. Em ${char.name}, a reação sob pressão segue essa mesma lógica: ${char.underPressure.charAt(0).toLowerCase() + char.underPressure.slice(1)}`
+        );
+      }
+
+      if (chosenSummaries.blindSpot.length > 0) {
+        parts.push(
+          `<strong>Ponto de atenção (ponto cego):</strong> você reconheceu que ${chosenSummaries.blindSpot.join(" e ")}. No Raio-X de ${char.name}, o ponto cego correspondente envolve ${char.blindSpot.charAt(0).toLowerCase() + char.blindSpot.slice(1)} Vale lembrar que correspondências fictícias capturam semelhanças de dinâmica, mas a sua história real tem nuances próprias.`
+        );
+      }
+
+      return parts;
+    }
+
+    function renderQuizModal() {
+      if (!quizState.isOpen) return;
+
+      if (quizState.step === "disclaimer") {
+        quizModalContent.innerHTML = `
+          <div class="quiz-header">
+            <div>
+              <div class="quiz-step-label">Antes de começar</div>
+              <h2 class="quiz-title" id="quizModalTitle">Aviso sobre Interpretação e Correspondência</h2>
+            </div>
+            <button type="button" class="quiz-close-btn" id="closeQuizBtn" title="Fechar">✕</button>
+          </div>
+
+          <div class="disclaimer-card">
+            <span class="disclaimer-badge">Aviso Importante</span>
+            <p class="disclaimer-text">
+              As análises apresentadas neste site são interpretações psicológicas de personagens fictícios, elaboradas com finalidade informativa e de entretenimento. O quiz oferece correspondências baseadas nas respostas fornecidas e não constitui avaliação psicológica, diagnóstico clínico ou substituto de acompanhamento profissional.
+            </p>
+          </div>
+
+          <div class="quiz-footer">
+            <button type="button" class="quiz-btn-secondary" id="cancelQuizBtn">Voltar ao catálogo</button>
+            <button type="button" class="quiz-btn-primary" id="startQuestionsBtn">Entendi, iniciar perguntas →</button>
+          </div>
+        `;
+
+        document.getElementById("closeQuizBtn").addEventListener("click", closeQuiz);
+        document.getElementById("cancelQuizBtn").addEventListener("click", closeQuiz);
+        document.getElementById("startQuestionsBtn").addEventListener("click", () => {
+          quizState.step = "questions";
+          quizState.questionIndex = 0;
+          renderQuizModal();
+        });
+        return;
+      }
+
+      if (quizState.step === "questions") {
+        const q = quizQuestions[quizState.questionIndex];
+        const selected = getSelectedSet(q.id);
+        const totalQ = quizQuestions.length;
+        const progressPct = Math.round(((quizState.questionIndex + 1) / totalQ) * 100);
+        const isLast = quizState.questionIndex === totalQ - 1;
+
+        quizModalContent.innerHTML = `
+          <div class="quiz-header">
+            <div>
+              <div class="quiz-step-label">Pergunta ${quizState.questionIndex + 1} de ${totalQ}</div>
+              <h2 class="quiz-title" id="quizModalTitle">Mapeamento de Padrões</h2>
+            </div>
+            <button type="button" class="quiz-close-btn" id="closeQuizBtn" title="Fechar">✕</button>
+          </div>
+
+          <div class="quiz-progress-wrap">
+            <div class="quiz-progress-meta">
+              <span>Progresso do questionário</span>
+              <span>${progressPct}%</span>
+            </div>
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-fill" style="width: ${progressPct}%"></div>
+            </div>
+          </div>
+
+          <div>
+            <p class="question-prompt">${q.prompt}</p>
+            <p class="question-hint">${q.hint}</p>
+            <div class="options-list">
+              ${q.options.map((opt, idx) => {
+                const isSelected = selected.has(idx);
+                return `
+                  <button type="button" class="option-btn ${isSelected ? "selected" : ""}" data-opt-idx="${idx}">
+                    <span class="option-marker">${isSelected ? "✓" : ""}</span>
+                    <span>${opt.label}</span>
+                  </button>
+                `;
+              }).join("")}
+            </div>
+          </div>
+
+          <div class="quiz-footer">
+            <button type="button" class="quiz-btn-secondary" id="prevQuestionBtn">
+              ${quizState.questionIndex === 0 ? "← Ver aviso" : "← Anterior"}
+            </button>
+            <button type="button" class="quiz-btn-primary" id="nextQuestionBtn" ${selected.size === 0 ? "disabled" : ""}>
+              ${isLast ? "Ver correspondência →" : "Próxima →"}
+            </button>
+          </div>
+        `;
+
+        document.getElementById("closeQuizBtn").addEventListener("click", closeQuiz);
+
+        document.querySelectorAll(".option-btn").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const idx = Number(btn.dataset.optIdx);
+            const maxSel = q.maxSelect || 1;
+            if (selected.has(idx)) {
+              selected.delete(idx);
+            } else {
+              if (selected.size >= maxSel) {
+                const firstVal = selected.values().next().value;
+                selected.delete(firstVal);
+              }
+              selected.add(idx);
+            }
+            renderQuizModal();
+          });
+        });
+
+        document.getElementById("prevQuestionBtn").addEventListener("click", () => {
+          if (quizState.questionIndex === 0) {
+            quizState.step = "disclaimer";
+          } else {
+            quizState.questionIndex -= 1;
+          }
+          renderQuizModal();
+        });
+
+        document.getElementById("nextQuestionBtn").addEventListener("click", () => {
+          if (selected.size === 0) return;
+          if (isLast) {
+            quizState.step = "result";
+          } else {
+            quizState.questionIndex += 1;
+          }
+          renderQuizModal();
+        });
+        return;
+      }
+
+      if (quizState.step === "result") {
+        const { ranked, chosenSummaries } = calculateQuizRanking();
+        const top = ranked[0];
+        const runnerUps = ranked.slice(1, 3);
+        const justificationParagraphs = buildGroundedJustification(top, chosenSummaries);
+
+        quizModalContent.innerHTML = `
+          <div class="quiz-header">
+            <div>
+              <div class="quiz-step-label">Correspondência do Catálogo</div>
+              <h2 class="quiz-title" id="quizModalTitle">Perfil Mais Próximo das Suas Respostas</h2>
+            </div>
+            <button type="button" class="quiz-close-btn" id="closeQuizBtn" title="Fechar">✕</button>
+          </div>
+
+          <div class="result-hero-box">
+            <div class="result-match-tag">Maior convergência de padrões • ~${top.affinity}% de afinidade estimada</div>
+            <div class="result-char-title">${top.character.name}</div>
+            <div class="result-char-sub">${top.character.work} — ${top.character.archetype}</div>
+            <blockquote class="signature-quote">“${top.character.quote}”</blockquote>
+          </div>
+
+          <div class="result-justification">
+            <div class="diagnosis-label">Por que esse perfil se aproxima do que você marcou</div>
+            ${justificationParagraphs.map(p => `<p>${p}</p>`).join("")}
+          </div>
+
+          <div class="runner-ups">
+            <span class="filter-label">Outras proximidades próximas no catálogo</span>
+            ${runnerUps.map(item => `
+              <div class="runner-up-item">
+                <div>
+                  <strong>${item.character.name}</strong> <span>(${item.character.work})</span>
+                </div>
+                <span>${item.character.category} • ~${item.affinity}%</span>
+              </div>
+            `).join("")}
+          </div>
+
+          <div class="quiz-footer">
+            <button type="button" class="quiz-btn-secondary" id="retakeQuizBtn">Refazer quiz</button>
+            <button type="button" class="quiz-btn-primary" id="focusCharacterBtn">Abrir perfil no catálogo →</button>
+          </div>
+        `;
+
+        document.getElementById("closeQuizBtn").addEventListener("click", closeQuiz);
+        document.getElementById("retakeQuizBtn").addEventListener("click", () => {
+          quizState.selectedByQuestion = {};
+          quizState.questionIndex = 0;
+          quizState.step = "questions";
+          renderQuizModal();
+        });
+        document.getElementById("focusCharacterBtn").addEventListener("click", () => {
+          const targetId = top.character.id;
+          state.search = "";
+          state.category = "Todas";
+          state.work = "Todas";
+          state.expandedIds.add(targetId);
+          state.highlightedId = targetId;
+          searchInput.value = "";
+          closeQuiz();
+          syncUI();
+          const cardEl = document.getElementById(`card-${targetId}`);
+          if (cardEl) {
+            cardEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        });
+      }
+    }
+
+    openQuizBtn.addEventListener("click", openQuiz);
+
+    quizModalBackdrop.addEventListener("click", e => {
+      if (e.target === quizModalBackdrop) {
+        closeQuiz();
+      }
+    });
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && quizState.isOpen) {
+        closeQuiz();
+      }
+    });
+
+    searchInput.addEventListener("input", e => {
+      state.search = e.target.value;
+      state.highlightedId = null;
+      syncUI();
+    });
+
+    clearSearchBtn.addEventListener("click", () => {
+      state.search = "";
+      searchInput.value = "";
+      searchInput.focus();
+      syncUI();
+    });
+
+    resetAllBtn.addEventListener("click", () => {
+      state.search = "";
+      state.category = "Todas";
+      state.work = "Todas";
+      state.highlightedId = null;
+      searchInput.value = "";
+      syncUI();
+    });
+
+    syncUI();
+  </script>
+</body>
+</html>
